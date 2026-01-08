@@ -1,7 +1,15 @@
 html, body {
-    max-width: 100%;
-    overflow-x: hidden !important; /* BLOQUE TOUT SCROLL HORIZONTAL */
-    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    
+    /* C'EST CES DEUX LIGNES QUI FIGENT LE SITE : */
+    height: 100%; 
+    overflow: hidden; /* Interdit tout défilement (haut/bas et gauche/droite) */
+    
+    background-color: var(--black);
+    color: white;
+    font-family: var(--font-main);
 }
 :root {
     --gold: #D4AF37;
