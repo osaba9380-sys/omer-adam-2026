@@ -2,12 +2,13 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    
-    /* C'EST CES DEUX LIGNES QUI FIGENT LE SITE : */
     height: 100%; 
-    overflow: hidden; /* Interdit tout défilement (haut/bas et gauche/droite) */
     
-    background-color: var(--black);
+    /* C'EST ICI LA CORRECTION : TRANSPARENT POUR VOIR LA PHOTO */
+    background-color: transparent; 
+    
+    overflow: hidden; /* Garde ça pour bloquer le scroll */
+    
     color: white;
     font-family: var(--font-main);
 }
