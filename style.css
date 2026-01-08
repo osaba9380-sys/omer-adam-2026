@@ -1,0 +1,814 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden !important; /* BLOQUE TOUT SCROLL HORIZONTAL */
+    position: relative;
+}
+:root {
+    --gold: #D4AF37;
+    --gold-dim: #8a701e;
+    --black: #050505;
+    --dark-grey: #121212;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-blue: #00f2ff;
+    --font-main: 'Montserrat', sans-serif;
+    --font-display: 'Syne', sans-serif;
+}
+
+
+
+body {
+    background-color: var(--black);
+    color: white;
+    font-family: var(--font-main);
+    overflow-x: hidden;
+}
+
+
+
+/* Loader */
+.loader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--black); z-index: 10000;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: opacity 0.8s ease;
+}
+.loader-text { font-family: var(--font-display); font-size: 2rem; color: var(--gold); margin-bottom: 20px; }
+.loader-bar { width: 200px; height: 2px; background: #333; position: relative; overflow: hidden; }
+.loader-bar span {
+    position: absolute; left: 0; top: 0; height: 100%; width: 0%;
+    background: var(--gold); animation: load 2s ease-in-out forwards;
+}
+@keyframes load { 100% { width: 100%; } }
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    /* Le cadrage (on le garde !) */
+    padding: 20px 50px;
+    box-sizing: border-box;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+
+    /* --- LE RETOUR DE L'EFFET MAGIQUE --- */
+    
+    /* 1. Un fond noir mais très transparent (30%) */
+    background: rgba(0, 0, 0, 0.3); 
+    
+    /* 2. Le flou d'arrière-plan (C'est ça qui fait l'effet buée) */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Pour que ça marche sur iPhone/Mac */
+
+    /* 3. Une petite bordure fine en bas pour souligner l'effet vitre */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.logo { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: 2px; }
+.logo .year { color: var(--gold); }
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+    text-decoration: none; color: white; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;
+    transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.cart-trigger { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; }
+.cart-trigger:hover { color: var(--gold); }
+.cart-count { background: var(--gold); color: black; padding: 2px 6px; border-radius: 50%; font-size: 0.7rem; font-weight: bold; }
+
+/* Hero */
+header {
+    height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center;
+}
+ 
+ /* Fond principal */
+/* Dans style.css */
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background-color: #000; /* Fond noir pour boucher les trous */
+
+    /* L'IMAGE */
+    background-image: url('fond-hd.jpg'); /* Mets le nom de la nouvelle image */
+    background-size: 25%; /* Elle couvre tout car elle est HD */
+    background-position: center top; /* On centre sur le haut */
+    background-repeat: no-repeat;
+
+    /* LA MAGIE (Masque de fusion) */
+    /* Ça crée un cercle de lumière au milieu et assombrit les bords */
+    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+    mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+
+    /* FINITIONS */
+    filter: brightness(0.7) contrast(1.1); /* Un peu sombre pour que le texte ressorte */
+}
+.bg-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 0%, var(--black) 90%); z-index: -1;
+}
+.hero-content { z-index: 1; }
+/* LE STYLE DE LA DATE EN GROS */
+.hero-date {
+    font-size: 2rem; /* Beaucoup plus gros (avant c'était surement 1rem) */
+    font-weight: 800; /* Très gras */
+    color: var(--gold);
+    
+    padding: 15px 40px; /* On agrandit l'espace dans le cadre */
+    border: 3px solid var(--gold); /* Bordure plus épaisse */
+    
+    display: inline-block; /* Pour que le cadre s'adapte au texte */
+    margin-bottom: 30px; /* Espace avant le titre OMER ADAM */
+    letter-spacing: 5px; /* Espace entre les chiffres pour le style */
+    
+    background: rgba(0, 0, 0, 0.4); /* Petit fond noir pour la lisibilité */
+    backdrop-filter: blur(5px); /* Petit flou derrière */
+}
+h1 {
+    font-family: var(--font-display); font-size: clamp(3rem, 7vw, 9rem);
+    line-height: 1; margin-bottom: 10px; color: white;
+}
+/* Dans ton fichier style.css */
+
+.sub-hero {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    letter-spacing: 8px;
+    
+    /* C'EST CETTE LIGNE QU'IL FAUT CHANGER : */
+    color: var(--gold);  /* <-- Avant c'était #aaa */
+    
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+.btn-main {
+    padding: 15px 40px; background: transparent; border: 1px solid var(--gold);
+    color: var(--gold); text-decoration: none; text-transform: uppercase;
+    font-weight: bold; transition: 0.4s; letter-spacing: 2px;
+}
+.btn-main:hover { background: var(--gold); color: black; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
+
+/* Section Styles */
+.section { padding: 100px 5%; }
+.section-title {
+    font-family: var(--font-display); font-size: 3rem; margin-bottom: 60px;
+    text-align: center; color: var(--gold);
+}
+.subtitle-center { text-align: center; color: #888; margin-bottom: 40px; margin-top: -40px; }
+
+/* Albums 3D */
+.albums-display {
+    display: flex; justify-content: center; align-items: center; gap: 30px; perspective: 1000px;
+}
+.album-item {
+    width: 250px; transition: 0.5s; position: relative;
+    transform-style: preserve-3d; opacity: 0.7;
+}
+.album-item img { width: 100%; border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.album-item:hover { transform: scale(1.1) translateZ(50px); opacity: 1; z-index: 10; }
+.center-album { transform: scale(1.1); opacity: 1; z-index: 5; }
+.album-info { text-align: center; margin-top: 15px; font-weight: bold; letter-spacing: 1px; color: var(--gold); }
+
+/* Plan Interactive */
+.ticket-interface {
+    display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;
+}
+.map-container {
+    flex: 2; min-width: 300px; max-width: 600px; position: relative;
+    background: #111; padding: 20px; border-radius: 20px; border: 1px solid #333;
+}
+.arena-svg { width: 100%; height: auto; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); }
+.stage-zone { fill: #222; stroke: #444; stroke-width: 2; }
+.clickable-zone { 
+    stroke-width: 1; transition: 0.3s; cursor: pointer; opacity: 0.6;
+}
+.clickable-zone:hover { opacity: 1; filter: drop-shadow(0 0 10px currentColor); }
+
+.zone-gold { fill: var(--gold); stroke: var(--gold); }
+.zone-fosse { fill: var(--neon-blue); stroke: var(--neon-blue); }
+.zone-cat1 { fill: #fff; stroke: #fff; }
+.zone-cat2 { fill: #666; stroke: #999; }
+
+.tooltip {
+    position: absolute; background: rgba(0,0,0,0.8); padding: 5px 10px;
+    border: 1px solid var(--gold); border-radius: 4px; pointer-events: none;
+    display: none; font-size: 0.8rem;
+}
+
+/* Selection Panel */
+.selection-panel {
+    flex: 1; min-width: 300px; background: var(--glass);
+    padding: 30px; border-radius: 20px; border: 1px solid var(--glass-border);
+}
+.category-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.cat-info { display: flex; gap: 15px; align-items: center; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: block; }
+.dot.gold { background: var(--gold); }
+.dot.blue { background: var(--neon-blue); }
+.dot.white { background: white; }
+.dot.grey { background: #666; }
+.cat-info h4 { font-size: 1rem; margin-bottom: 3px; }
+.cat-info small { color: #777; font-size: 0.75rem; }
+.btn-add {
+    width: 30px; height: 30px; border-radius: 50%; background: transparent;
+    border: 1px solid white; color: white; cursor: pointer; transition: 0.3s;
+}
+.btn-add:hover { background: var(--gold); border-color: var(--gold); color: black; }
+
+/* Music Player */
+.music-player-container {
+    position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 15px;
+    background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); padding: 10px 20px;
+    border-radius: 30px; border: 1px solid var(--glass-border); z-index: 900;
+}
+.track-info { width: 150px; overflow: hidden; white-space: nowrap; font-size: 0.8rem; color: #aaa; }
+.scrolling-text { display: inline-block; padding-left: 100%; animation: scroll 10s linear infinite; }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+#playPauseBtn { background: none; border: none; color: var(--gold); font-size: 1.2rem; cursor: pointer; }
+
+/* Visualizer */
+.visualizer { display: flex; gap: 3px; height: 15px; align-items: flex-end; }
+.bar { width: 3px; background: var(--gold); height: 5px; animation: sound 0s infinite alternate; }
+.playing .bar { animation-duration: 0.5s; }
+.bar:nth-child(1) { animation-delay: 0s; }
+.bar:nth-child(2) { animation-delay: 0.2s; }
+.bar:nth-child(3) { animation-delay: 0.4s; }
+@keyframes sound { 0% { height: 2px; } 100% { height: 15px; } }
+
+/* Footer */
+footer { background: #080808; padding: 60px 5% 20px; border-top: 1px solid #222; }
+.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-link { color: #777; text-decoration: none; transition: 0.3s; }
+.footer-link:hover { color: var(--gold); }
+.socials a { color: white; font-size: 1.5rem; margin-right: 15px; transition: 0.3s; }
+.socials a:hover { color: var(--gold); }
+.footer-bottom { text-align: center; color: #444; font-size: 0.8rem; border-top: 1px solid #1a1a1a; padding-top: 20px; }
+
+/* Cart Sidebar */
+.cart-sidebar {
+    position: fixed; top: 0; right: -400px; width: 350px; height: 100vh;
+    background: #0e0e0e; border-left: 1px solid var(--gold); z-index: 2000;
+    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); display: flex; flex-direction: column;
+}
+.cart-sidebar.open { right: 0; }
+.cart-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 1999; opacity: 0; pointer-events: none; transition: 0.3s;
+}
+.cart-overlay.open { opacity: 1; pointer-events: all; }
+.cart-header { padding: 20px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+.close-cart { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+.cart-body { flex: 1; padding: 20px; overflow-y: auto; }
+.cart-footer { padding: 20px; border-top: 1px solid #333; }
+.total-row { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; }
+.btn-whatsapp {
+    width: 100%; background: #25D366; color: white; border: none; padding: 15px;
+    font-weight: bold; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;
+}
+.btn-whatsapp:hover { background: #128C7E; }
+.cart-item-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+/* A AJOUTER A LA FIN DE STYLE.CSS */
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+.album-item {
+    padding: 30px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.center-album {
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.08);
+    transform: scale(1.1);
+}
+#welcome-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #000;
+    z-index: 9999; /* Par-dessus tout le reste */
+
+    display: none !important; /* ENLEVE CETTE LIGNE POUR APPARAITRE L'ECRAN D'ENTRER */
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 1s ease; /* Disparition douce */
+}
+
+#welcome-screen h1 {
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+}
+
+#welcome-screen button {
+    background: transparent;
+    color: var(--gold); /* Ta couleur dorée */
+    border: 2px solid var(--gold);
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#welcome-screen button:hover {
+    background: var(--gold);
+    color: #000;
+}
+/* CALQUE 1 : L'ACCUEIL (Z-index le plus haut = 3000) */
+#welcome-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    z-index: 3000; /* LE ROI : Il cache tout le reste */
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+#welcome-screen button {
+    border: 1px solid var(--gold); color: var(--gold); background: transparent;
+    padding: 15px 40px; font-size: 1.2rem; cursor: pointer;
+    letter-spacing: 3px; transition: 0.3s;
+}
+#welcome-screen button:hover { background: var(--gold); color: #000; }
+
+/* CALQUE 2 : LE LOADER (Z-index moyen = 2000) */
+.loader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #050505;
+    z-index: 2000; /* SOUS l'accueil, mais SUR le site */
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: opacity 1s ease; /* Disparition douce */
+}
+
+/* Le style de la barre de chargement (si tu ne l'as plus) */
+.loader-text { color: var(--gold); margin-bottom: 20px; letter-spacing: 5px; }
+.loader-bar { width: 200px; height: 2px; background: #333; overflow: hidden; }
+.loader-bar span {
+    display: block; width: 100%; height: 100%; background: var(--gold);
+    animation: loading 3s linear infinite; /* Animation de la barre */
+}
+@keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* LE CONTENEUR PRINCIPAL */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    
+    /* C'est ça qui range tout proprement : */
+    display: flex;
+    flex-direction: column; /* Tout en colonne verticale */
+    align-items: center;    /* Tout centré horizontalement */
+    gap: 25px;              /* 25px d'écart EXACT entre chaque élément */
+    
+    padding-top: 50px; /* On descend un peu le tout pour pas coller au menu */
+}
+
+/* 1. STYLE DU LOGO ADIDAS */
+/* LE LOGO ADIDAS ARENA EN GROS */
+.venue-logo {
+    /* 1. ON AGRANDIT LA TAILLE */
+    width: 315px; /* Avant c'était 120px. Tu peux mettre 300px si tu veux encore plus gros */
+    height: auto; /* Pour garder les bonnes proportions */
+    
+    /* 2. L'ESPACE EN DESSOUS */
+    margin-bottom: 25px; /* On laisse de l'air entre le gros logo et la date */
+
+    /* 3. ON GARDE LA MAGIE (Inversion + Ombre) */
+    filter: invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.3)); 
+}
+
+/* 2. STYLE DE LA DATE (Rappel de ce qu'on a fait avant) */
+.hero-date {
+    font-size: 1.8rem; 
+    font-weight: 800;
+    color: var(--gold);
+    padding: 10px 30px;
+    border: 2px solid var(--gold);
+    background: rgba(0, 0, 0, 0.4);
+    letter-spacing: 3px;
+}
+
+/* 3. STYLE DU TITRE */
+.main-title {
+    font-size: clamp(3rem, 8vw, 7rem); /* S'adapte à l'écran */
+    font-weight: 800;
+    line-height: 0.9;
+    margin: 0; /* On enlève les marges par défaut car 'gap' gère tout */
+    text-transform: uppercase;
+}
+/* --- RÉPARATION DU BOUTON --- */
+.cta-button {
+    /* 1. On le rend visible et gros */
+    display: inline-block;
+    background-color: var(--gold); /* Fond Doré */
+    color: #000; /* Texte Noir */
+    
+    /* 2. La taille */
+    padding: 18px 50px;
+    font-size: 1.2rem;
+    font-weight: 800; /* Texte gras */
+    text-decoration: none; /* Pas de soulignement */
+    border-radius: 5px; /* Coins un peu arrondis */
+    
+    /* 3. L'espacement */
+    margin-top: 30px; /* Espace au dessus */
+    
+    /* 4. Animation (pour faire pro) */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid var(--gold);
+}
+
+.cta-button:hover {
+    transform: scale(1.05); /* Grossit quand on passe la souris */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); /* Lumière dorée */
+    background-color: transparent; /* Devient transparent au survol */
+    color: var(--gold); /* Texte devient doré */
+}
+
+/* =========================================
+   1. STYLE BARRE DE NAVIGATION (VERSION ORDI)
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    position: fixed; top: 0; width: 100%; z-index: 2000;
+    background: rgba(0, 0, 0, 0.5); /* Ton fond semi-transparent */
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+/* SUR ORDI : On cache le hamburger et on affiche les liens */
+.hamburger-icon { display: none; } 
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.cart-trigger { display: flex; align-items: center; gap: 10px; cursor: pointer; color: white; }
+
+/* L'ORDRE DES ÉLÉMENTS SUR ORDI */
+.logo { order: 1; }        /* Logo à gauche */
+.nav-links { order: 2; }   /* Liens au milieu */
+.cart-trigger { order: 3; }/* Panier à droite */
+
+/* Pour l'ordinateur, on affiche bien le texte PANIER */
+.cart-text {
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   VERSION MOBILE FINALE (CORRIGÉE)
+   ========================================= */
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 15px 20px;
+        background: transparent;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .hamburger-icon {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px; height: 22px;
+        z-index: 6000; order: 1;
+        cursor: pointer;
+    }
+    .cart-text { display: none !important; }
+
+    .hamburger-icon span {
+        width: 100%; height: 2px; background-color: var(--gold); transition: 0.3s;
+    }
+    
+    /* Animation croix */
+    .hamburger-icon.open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+    .hamburger-icon.open span:nth-child(2) { opacity: 0; }
+    .hamburger-icon.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+    /* LOGO OA (Centre) */
+    .logo {
+        position: absolute; left: 50%; transform: translateX(-50%);
+        z-index: 5000; order: 2;
+        font-size: 1.4rem;
+    }
+
+    /* PANIER (Droite - DÉCALÉ VERS LA GAUCHE) */
+    .cart-trigger {
+        order: 3; z-index: 6000;
+        display: flex !important;
+        font-size: 1.3rem; /* Icône un peu plus grosse */
+        
+        /* C'EST ICI QU'ON LE DÉCALE */
+        margin-right: 25px !important; 
+    }
+    .cart-text { display: none; } /* On cache le texte, on garde l'icône */
+    .nav-links { display: none !important; }
+
+
+    /* --- 2. CONTENU (Logo Adidas Agrandit) --- */
+    body {
+        background-color: #000;
+        background-image: none; /* Le fond est géré par .hero-bg */
+    }
+    
+    .hero-bg {
+        background-size: 250% !important;
+        background-position:  center 10% !important;
+        opacity: 1 !important;
+    }
+
+    .hero-content {
+        margin-top: 110px !important;
+        padding-bottom: 50px;
+        display: flex; flex-direction: column; align-items: center; gap: 20px;
+    }
+
+    /* LOGO ADIDAS PLUS GRAND */
+    .venue-logo { 
+        width: 180px !important; /* Avant c'était 100px */
+        max-width: 80%; /* Sécurité pour les petits écrans */
+    }
+
+    .hero-date { font-size: 1.5rem; padding: 10px 25px; }
+    .main-title { font-size: 3rem; line-height: 1; text-align: center;}
+    
+    .cta-button {
+        display: block; width: fit-content; margin: 20px auto 0 auto;
+        padding: 15px 35px; border-radius: 0px !important;
+        background: var(--gold); color: #000; border: 2px solid var(--gold);
+        font-weight: 800;
+    }
+    
+    
+ /* --- MENU MOBILE : SOLUTION PROPRE ET CENTRÉE --- */
+#mobile-menu-overlay {
+    /* 1. ON LE SORT DU FLUX POUR NE RIEN DÉCALER */
+    position: fixed !important; 
+    top: 0;
+    left: 0;
+    width: 100%; /* Largeur totale écran */
+    height: 100vh; /* Hauteur totale écran */
+    
+    /* 2. ON LE POSE AU-DESSUS DE TOUT */
+    z-index: 11000 !important; 
+    
+    /* 3. LE RESTE DES STYLES */
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(15px);
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* 4. ÉTAT CACHÉ PAR DÉFAUT */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* QUAND IL EST ACTIF */
+#mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* 1. BOUTON FERMER */
+.menu-close-btn {
+    position: absolute;
+    top: 25px; 
+    right: 25px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 8px 18px;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+/* 2. CONTENEUR DES LIENS */
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;       
+    max-width: 300px;  /* Garde tes lignes propres */
+    padding: 0;
+    margin: 0;
+}
+
+/* 3. LES LIENS */
+.menu-content a {
+    display: block;
+    width: 100%;
+    text-align: center; /* TEXTE ENFIN AU CENTRE */
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-content a:last-child { border-bottom: none; }
+
+/* 4. DÉCO BAS DE PAGE */
+.menu-footer {
+    position: absolute; 
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+    color: #444; 
+    font-size: 0.7rem; 
+}
+
+   /* --- PANIER MOBILE (VERSION 100% ÉCRAN & COMPACTE) --- */
+    .cart-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100% !important;           /* Il prend tout l'écran quand il est ouvert */
+        height: 100vh;
+        transform: translateX(100%); /* Il est totalement caché à droite par défaut */
+        transition: transform 0.3s ease-in-out;
+        z-index: 12000;        /* Plus haut que le menu mobile */
+    }
+
+    .cart-sidebar.open {
+        transform: translateX(0); /* Il glisse vers la gauche pour s'afficher */
+    }
+}
+
+    /* --- EN-TÊTE COMPACT --- */
+    .cart-header {
+        padding: 15px !important; /* Moins d'espace */
+        border-bottom: 1px solid #333;
+        background: #111;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0; /* Ne s'écrase pas */
+    }
+
+    .cart-header h2 {
+        font-size: 1rem !important; /* Titre petit */
+        margin: 0;
+        letter-spacing: 1px;
+        color: white;
+    }
+    
+    .close-cart {
+        font-size: 1.5rem !important;
+        background: none; border: none; color: white;
+        padding: 5px 10px; cursor: pointer;
+    }
+
+    /* --- CORPS DU PANIER (Liste serrée) --- */
+    .cart-body {
+        padding: 15px !important;
+        flex-grow: 1; /* Prend tout l'espace disponible */
+        overflow-y: auto; /* Scrolle si besoin */
+    }
+
+    .cart-item-row {
+        display: flex; 
+        justify-content: space-between;
+        align-items: center; /* Aligné verticalement */
+        
+        background: #0a0a0a; /* Léger fond pour séparer */
+        padding: 10px !important; /* Compact */
+        margin-bottom: 8px !important; /* Peu d'espace entre les billets */
+        border-radius: 4px;
+        border: 1px solid #222;
+    }
+    
+    .cart-item-row strong {
+        font-size: 0.95rem !important; /* Nom de la place */
+        color: var(--gold);
+        display: block;
+    }
+    
+    .cart-item-row small {
+        font-size: 0.75rem !important; /* "Concert 2026" très petit */
+        color: #666;
+    }
+
+    .cart-item-row div:last-child {
+        text-align: right;
+        font-size: 0.95rem !important; /* Prix */
+        font-weight: bold;
+    }
+
+    /* --- BAS DE PAGE (TOTAL) --- */
+    .cart-footer {
+        padding: 15px !important;
+        background: #111;
+        border-top: 1px solid #333;
+        flex-shrink: 0;
+    }
+
+    .total-row {
+        display: flex; justify-content: space-between;
+        font-size: 1.1rem !important;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 15px !important;
+    }
+
+    /* BOUTON WHATSAPP */
+    .btn-whatsapp {
+        width: 100%;
+        padding: 12px 0 !important;
+        font-size: 0.9rem !important;
+        border-radius: 0 !important; /* Carré pour faire pro */
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+        background: #25D366; color: white; border: none;
+    }
+
+/* --- LE RIDEAU DE FER (SEMI-TRANSPARENT) --- */
+#site-lock {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    
+   /* ESSAI N°1 : Transparence moyenne (recommandé) */
+background-color: rgba(0, 0, 0, 0.15); /* 0.4 = 40% de noir, on voit bien à travers */
+backdrop-filter: blur(4px); /* Flou plus léger */
+-webkit-backdrop-filter: blur(4px);
+    
+    z-index: 99999; /* Reste au-dessus de tout pour bloquer les clics */
+    
+    /* Centrage du texte */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.lock-content h1 {
+    color: #D4AF37;
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.lock-content p {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* --- LE CERCLE DE CHARGEMENT ANIMÉ --- */
+.lock-spinner {
+    margin: 30px auto 0; /* Centré avec un peu d'espace au-dessus */
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(212, 175, 55, 0.3); /* Cercle gris/or très pâle */
+    border-top: 3px solid #D4AF37; /* La partie qui tourne (Ton Or) */
+    border-radius: 50%; /* Rend le carré rond */
+    animation: spin 1s linear infinite; /* Ça tourne à l'infini */
+}
+
+/* L'animation de rotation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

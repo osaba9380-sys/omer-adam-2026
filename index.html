@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetterie Revendeur | OMER ADAM - Paris 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="site-lock">
+    <div class="lock-content">
+        <h1>OMER ADAM PARIS 2026</h1>
+        <p>LES BILLETS SERONT DISPONIBLES TRÈS PROCHAINEMENT...</p>
+        <div class="lock-spinner"></div>
+    </div>
+</div>
+
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <h1>OMER ADAM-PARIS 2026</h1>
+            <button onclick="startExperience()">ENTRER</button>
+        </div>
+    </div>
+
+    <div class="loader" id="siteLoader">
+        <div class="loader-text">CHARGEMENT...</div>
+        <div class="loader-bar"><span></span></div>
+    </div>
+
+ <nav class="navbar">
+    <div class="hamburger-icon" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="logo">
+        <a href="#accueil" style="text-decoration:none; color:white;">OA <span>2026</span></a>
+    </div>
+
+    <div class="cart-trigger" onclick="toggleCart()"> <span class="cart-text">PANIER</span> <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count">0</span>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#accueil">ACCUEIL</a></li>
+        <li><a href="#billetterie">BILLETTERIE</a></li>
+        <li><a href="#infos">INFOS</a></li>
+    </ul>
+</nav>
+
+<div id="mobile-menu-overlay">
+    
+    <button class="menu-close-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-times"></i> FERMER
+    </button>
+
+    <div class="menu-content">
+        <a href="#accueil" onclick="toggleMobileMenu()">ACCUEIL</a>
+        <a href="#billetterie" onclick="toggleMobileMenu()">RÉSERVER</a>
+        <a href="#infos" onclick="toggleMobileMenu()">INFOS PRATIQUES</a>
+    </div>
+
+    <div class="menu-footer">OA 2026</div>
+</div>
+
+    <header id="accueil">
+    <div class="bg-overlay"></div>
+    <div class="hero-bg" style="background-image: url('omerfond.jpg');"></div>
+    
+    <div class="hero-content">
+        <img src="logo.png" alt="Adidas Arena" class="venue-logo">
+        <div class="hero-date">20.01.2026</div>
+        <h1 class="main-title">OMER ADAM</h1>
+        <p class="sub-hero">LE PREMIER CONCERT EN FRANCE</p>
+        <a href="#billetterie" class="cta-button">RÉSERVER MA PLACE</a>
+    </div>
+</header>
+
+ <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">CHOISISSEZ VOTRE PLACE</h2>
+            <div class="albums-display">
+                
+                <div class="album-item">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h3>CATÉGORIE 2</h3>
+                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px; line-height: 1.6;">
+                        <strong>VUE PANORAMIQUE</strong><br>
+                        Prenez de la hauteur et profitez d'une vue d'ensemble spectaculaire sur l'Adidas Arena. L'option idéale pour vibrer à l'unisson avec l'énergie de la foule.
+                    </p>
+                </div>
+
+                <div class="album-item center-album">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <h3 style="color: white;">CATÉGORIE 1</h3>
+                    <p style="font-size: 0.8rem; color: #fff; margin-top: 15px; line-height: 1.6;">
+                        <strong>CONFORT & PROXIMITÉ</strong><br>
+                        Vos places assises numérotées offrant une vue directe et imprenable sur la scène. Vivez chaque détail du show dans un confort absolu.
+                    </p>
+                </div>
+
+                <div class="album-item">
+                    <div class="card-icon"><i class="fas fa-crown"></i></div>
+                    <h3>VIP GOLD</h3>
+                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px; line-height: 1.6;">
+                        <strong>L'EXPÉRIENCE ULTIME</strong><br>
+                        Les meilleures places de la salle. Inclut une entrée prioritaire coupe-file, l'accès au salon privé et un cocktail dînatoire avant le concert.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="billetterie" class="section dark-section">
+        <div class="container">
+            <h2 class="section-title">PLAN DE SALLE</h2>
+            <p class="subtitle-center">Sélectionnez une zone sur le plan pour ajouter au panier</p>
+            
+            <div class="ticket-interface">
+                <div class="map-container">
+                    <svg viewBox="0 0 500 400" class="arena-svg">
+                        <path d="M150,50 L350,50 L350,100 L150,100 Z" class="stage-zone" />
+                        <text x="250" y="80" text-anchor="middle" fill="#555" font-size="12" font-weight="bold">SCÈNE</text>
+
+                        <path id="zone-fosse-or" d="M170,110 L330,110 L330,200 L170,200 Z" class="clickable-zone zone-gold" onclick="addToCart('Fosse Or', 0)"/>
+                        <text x="250" y="160" text-anchor="middle" fill="white" font-size="10" pointer-events="none">FOSSE OR</text>
+
+                        <path id="zone-fosse" d="M150,210 L350,210 L350,300 L150,300 Z" class="clickable-zone zone-fosse" onclick="addToCart('Fosse Debout', 0)"/>
+                        <text x="250" y="260" text-anchor="middle" fill="white" font-size="10" pointer-events="none">FOSSE</text>
+
+                        <path id="zone-cat1-L" d="M50,100 L140,100 L140,300 L50,300 Z" class="clickable-zone zone-cat1" onclick="addToCart('Catégorie 1', 0)"/>
+                        <text x="95" y="200" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 1</text>
+                        
+                        <path id="zone-cat1-R" d="M360,100 L450,100 L450,300 L360,300 Z" class="clickable-zone zone-cat1" onclick="addToCart('Catégorie 1', 0)"/>
+                        <text x="405" y="200" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 1</text>
+
+                        <path id="zone-cat2" d="M150,310 L350,310 L350,380 L150,380 Z" class="clickable-zone zone-cat2" onclick="addToCart('Catégorie 2', 0)"/>
+                        <text x="250" y="350" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 2</text>
+                    </svg>
+                    
+                    <div class="tooltip" id="mapTooltip"></div>
+                </div>
+
+                <div class="selection-panel">
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot gold"></span>
+                            <div>
+                                <h4>Fosse Or</h4>
+                                <small>Au plus près d'Omer</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span>0,00 €</span>
+                            <button class="btn-add" onclick="addToCart('Fosse Or', 0)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot blue"></span>
+                            <div>
+                                <h4>Fosse Debout</h4>
+                                <small>Ambiance garantie</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span>0,00 €</span>
+                            <button class="btn-add" onclick="addToCart('Fosse Debout', 0)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot white"></span>
+                            <div>
+                                <h4>Catégorie 1</h4>
+                                <small>Assis numéroté</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span>0,00 €</span>
+                            <button class="btn-add" onclick="addToCart('Catégorie 1', 0)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot grey"></span>
+                            <div>
+                                <h4>Catégorie 2</h4>
+                                <small>Vue panoramique</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span>0,00 €</span>
+                            <button class="btn-add" onclick="addToCart('Catégorie 2', 0)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="infos">
+        <div class="footer-content">
+            <div class="col">
+    <h3>ADIDAS ARENA</h3>
+    <p>Porte de la Chapelle<br>75018 Paris, France</p>
+    <a href="https://www.google.com/maps/search/?api=1&query=Adidas+Arena+Paris" target="_blank" class="footer-link">Voir sur Maps</a>
+</div>
+            <div class="col">
+                <h3>CONTACT</h3>
+                <p>Pour toute question sur la billetterie :</p>
+                <a href="mailto:contact@omeradam2026.com" class="footer-link">contact@omeradam2026.com</a>
+            </div>
+            <div class="col">
+                <h3>SUIVEZ OMER</h3>
+                <div class="socials">
+                    <a href="https://www.instagram.com/omeradam"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/OmerAdamOfficial"><i class="fab fa-youtube"></i></a>
+                    <a href="https://open.spotify.com/intl-fr/artist/1IAEef07H0fd9aA8aUHUlL"><i class="fab fa-spotify"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Production. Tous droits réservés. Site officiel du concert.
+        </div>
+    </footer>
+
+    <div class="music-player-container">
+        <div class="track-info">
+           <span class="scrolling-text">עומר אדם - מלכת הדור • OMER ADAM - MALKAT HADOR • עומר אדם - מלכת הדור •</span>
+        </div>
+        <div class="player-controls">
+            <button id="playPauseBtn" onclick="toggleMusic()">
+                <i class="fas fa-play"></i>
+            </button>
+            <div class="visualizer" id="visualizer">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+        </div>
+        <audio id="audioSource" loop>
+    <source src="musique.mp3" type="audio/mp3">
+</audio>
+    </div>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>VOTRE PANIER</h2>
+            <button onclick="toggleCart()" class="close-cart">&times;</button>
+        </div>
+        <div class="cart-body" id="cartItems">
+            </div>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total Estimé</span>
+                <span id="cartTotal">0,00 €</span>
+            </div>
+            <button class="btn-whatsapp" onclick="checkoutWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Finaliser sur WhatsApp
+            </button>
+        </div>
+    </div>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        // --- 1. GESTION DU MENU MOBILE ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu-overlay');
+            const icon = document.querySelector('.hamburger-icon');
+            
+            // On ouvre/ferme le menu
+            menu.classList.toggle('active');
+            // On anime l'icône
+            icon.classList.toggle('open');
+        }
+
+        // --- 2. GESTION DE L'EXPÉRIENCE (INTRO + AUDIO) ---
+        function startExperience() {
+            var audio = document.getElementById("audioSource");
+            var welcome = document.getElementById("welcome-screen");
+            var loader = document.getElementById("siteLoader");
+            var btnIcon = document.querySelector("#playPauseBtn i"); 
+            var visualizer = document.getElementById("visualizer");
+
+            // On lance l'audio (avec sécurité)
+            if(audio) {
+                audio.play().catch(e => console.log("Lecture auto bloquée"));
+            }
+            
+            // On change l'icône en Pause
+            if(btnIcon) {
+                btnIcon.classList.remove("fa-play");
+                btnIcon.classList.add("fa-pause");
+            }
+            
+            // On active le visualiseur
+            if(visualizer) visualizer.classList.add("playing");
+
+            // On fait disparaître l'écran de bienvenue
+            if(welcome) {
+                welcome.style.opacity = "0";
+                setTimeout(() => { welcome.style.display = "none"; }, 500);
+            }
+            
+            // On fait disparaître le loader
+            if(loader) {
+                loader.style.opacity = "0";
+                setTimeout(() => { loader.style.display = "none"; }, 800);
+            }
+        }
+    </script>
+</body>
+</html>
