@@ -924,4 +924,24 @@ input:focus, textarea:focus {
     font-size: 16px;
     text-transform: uppercase;
 }
+
 .submit-btn:hover { background-color: #f1c40f; }
+
+/* --- LE CADRE LÉGAL (DISCLAIMER) --- */
+.legal-disclaimer {
+    margin: 25px auto 0; /* Espace au-dessus */
+    border: 1px solid rgba(212, 175, 55, 0.6); /* Cadre Or fin et discret */
+    padding: 15px;
+    width: 90%;
+    max-width: 400px; /* Pas trop large sur ordi */
+    background-color: rgba(0, 0, 0, 0.4); /* Fond noir semi-transparent */
+    font-size: 11px; /* Texte petit mais lisible */
+    line-height: 1.4;
+    color: #ccc; /* Gris clair pour ne pas agresser l'oeil */
+    text-transform: uppercase;
+}
+
+.legal-disclaimer strong {
+    color: white;
+    text-decoration: underline;
+}
