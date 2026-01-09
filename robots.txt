@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://omeradam-paris-billets.com/sitemap.xml
