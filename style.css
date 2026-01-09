@@ -821,3 +821,107 @@ backdrop-filter: blur(4px); /* Flou plus léger */
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* --- LE BOUTON D'ALERTE --- */
+.gold-btn {
+    margin-top: 30px;
+    background-color: transparent;
+    border: 2px solid #D4AF37; /* Or */
+    color: #D4AF37;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.gold-btn:hover {
+    background-color: #D4AF37;
+    color: black;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+/* --- LA FENÊTRE MODALE (POPUP) --- */
+.modal-hidden {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    z-index: 100000; /* Au-dessus de tout, même du verrou */
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9); /* Fond noir très opaque */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-box {
+    background-color: #111; /* Fond de la boîte */
+    border: 1px solid #D4AF37;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+}
+
+/* Le bouton croix pour fermer */
+#close-modal {
+    position: absolute;
+    top: 10px; right: 20px;
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#close-modal:hover { color: #fff; }
+
+/* Les titres du formulaire */
+.modal-box h2 {
+    color: #D4AF37;
+    margin-top: 0;
+    font-family: inherit;
+}
+.modal-box p {
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Les champs de saisie */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background-color: #222;
+    border: 1px solid #444;
+    color: white;
+    font-family: inherit;
+    outline: none;
+}
+input:focus, textarea:focus {
+    border-color: #D4AF37;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* Bouton valider */
+.submit-btn {
+    width: 100%;
+    background-color: #D4AF37;
+    color: black;
+    padding: 14px 20px;
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.submit-btn:hover { background-color: #f1c40f; }

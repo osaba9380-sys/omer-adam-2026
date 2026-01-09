@@ -17,6 +17,7 @@
         <h1>OMER ADAM PARIS 2026</h1>
         <p>LES BILLETS SERONT DISPONIBLES TRÈS PROCHAINEMENT...</p>
         <div class="lock-spinner"></div>
+        <button id="alert-btn" class="gold-btn">M'INSCRIRE À L'ALERTE 🔔</button>
     </div>
 </div>
 
@@ -323,5 +324,41 @@
             }
         }
     </script>
+    <div id="modal-overlay" class="modal-hidden">
+    <div class="modal-box">
+        <span id="close-modal">&times;</span>
+        <h2>LISTE D'ATTENTE VIP</h2>
+        <p>Soyez les premiers informés de l'ouverture.</p>
+
+        <form action="https://formsubmit.co/omeradamconcert@gmail.com" method="POST">
+
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://omeradam-paris-billets.com">
+
+            <div class="input-group">
+                <input type="text" name="nom" placeholder="Nom" required>
+                <input type="text" name="prenom" placeholder="Prénom" required>
+            </div>
+
+            <input type="tel" name="telephone" placeholder="Numéro de téléphone" required>
+
+            <textarea name="demande" placeholder="Combien de places ? Quel type ? (Carré Or, Fosse...)" rows="3"></textarea>
+
+            <button type="submit" class="submit-btn">VALIDER MON INSCRIPTION</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('modal-overlay');
+    const btn = document.getElementById('alert-btn');
+    const close = document.getElementById('close-modal');
+
+    btn.onclick = function() { modal.style.display = "flex"; }
+    close.onclick = function() { modal.style.display = "none"; }
+    window.onclick = function(event) {
+        if (event.target == modal) { modal.style.display = "none"; }
+    }
+</script>
 </body>
 </html>
