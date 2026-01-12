@@ -75,10 +75,7 @@
             cursor: default;
         }
         
-        /* 3. BLOQUER LE DEFILEMENT AVANT LE CLIC */
-        body {
-            overflow: hidden; 
-        }
+        /* J'AI SUPPRIMÉ LE BLOCAGE DU DEFILEMENT ICI (body { overflow: hidden }) */
     </style>
 </head>
 <body>
@@ -329,9 +326,6 @@
                 welcome.style.opacity = "0";
                 setTimeout(() => { welcome.style.display = "none"; }, 500);
             }
-            
-            // *** CRUCIAL : DÉBLOQUER LE SCROLL ***
-            document.body.style.overflow = "auto";
         }
     </script>
     
