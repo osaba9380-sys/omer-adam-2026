@@ -4,29 +4,39 @@
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="vMQCk0sUKCXJtxzv3JLkV6_mUISh0_vsvQ2SpJVU4H0" />
     <meta property="og:image" content="https://raw.githubusercontent.com/osaba9380-sys/omer-adam-2026/main/afficheconcert.png" />
-<meta name="thumbnail" content="https://raw.githubusercontent.com/osaba9380-sys/omer-adam-2026/main/afficheconcert.png" />
+    <meta name="thumbnail" content="https://raw.githubusercontent.com/osaba9380-sys/omer-adam-2026/main/afficheconcert.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billets OMER ADAM Paris 2026</title>
-    <meta name="description" content="Vente Billets OMER ADAM - Paris 2026. Le concert événement à l'Adidas Arena le 20 Janvier 2026. Places officielles, Carré Or et Fosse. Inscrivez-vous à l'alerte dès maintenant.">
+    <meta name="description" content="Vente Billets OMER ADAM - Paris 2026. Le concert événement à l'Adidas Arena le 20 Janvier 2026.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-<link rel="shortcut icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
     <link rel="stylesheet" href="style.css">
+
     <style>
-    /* Empêche de cliquer sur le plan */
-    .clickable-zone {
-        pointer-events: none !important;
-        cursor: default !important;
-        opacity: 0.5; /* Rend les zones un peu plus ternes */
-    }
-</style>
+        .clickable-zone {
+            pointer-events: none !important; /* Rend la carte totalement incliquable */
+            cursor: default !important;
+            opacity: 0.5; /* Grise légèrement les zones */
+        }
+        .btn-add:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        /* Empêche de cliquer sur le bouton du haut */
+        .cta-button.disabled-link {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
 </head>
 <body>
-    
+
     <div id="welcome-screen">
         <div class="welcome-content">
             <h1>OMER ADAM-PARIS 2026</h1>
@@ -39,57 +49,58 @@
         <div class="loader-bar"><span></span></div>
     </div>
 
- <nav class="navbar">
-    <div class="hamburger-icon" onclick="toggleMobileMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+    <nav class="navbar">
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="logo">
+            <a href="#accueil" style="text-decoration:none; color:white;">OA <span>2026</span></a>
+        </div>
+
+        <div class="cart-trigger" onclick="toggleCart()"> 
+            <span class="cart-text">PANIER</span> <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#accueil">ACCUEIL</a></li>
+            <li><a href="#billetterie">BILLETTERIE</a></li>
+            <li><a href="#infos">INFOS</a></li>
+        </ul>
+    </nav>
+
+    <div id="mobile-menu-overlay">
+        <button class="menu-close-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i> FERMER
+        </button>
+
+        <div class="menu-content">
+            <a href="#accueil" onclick="toggleMobileMenu()">ACCUEIL</a>
+            <a href="#billetterie" onclick="toggleMobileMenu()">RÉSERVER</a>
+            <a href="#infos" onclick="toggleMobileMenu()">INFOS PRATIQUES</a>
+        </div>
+
+        <div class="menu-footer">OA 2026</div>
     </div>
-
-    <div class="logo">
-        <a href="#accueil" style="text-decoration:none; color:white;">OA <span>2026</span></a>
-    </div>
-
-    <div class="cart-trigger" onclick="toggleCart()"> <span class="cart-text">PANIER</span> <i class="fas fa-shopping-bag"></i>
-        <span class="cart-count">0</span>
-    </div>
-
-    <ul class="nav-links">
-        <li><a href="#accueil">ACCUEIL</a></li>
-        <li><a href="#billetterie">BILLETTERIE</a></li>
-        <li><a href="#infos">INFOS</a></li>
-    </ul>
-</nav>
-
-<div id="mobile-menu-overlay">
-    
-    <button class="menu-close-btn" onclick="toggleMobileMenu()">
-        <i class="fas fa-times"></i> FERMER
-    </button>
-
-    <div class="menu-content">
-        <a href="#accueil" onclick="toggleMobileMenu()">ACCUEIL</a>
-        <a href="#billetterie" onclick="toggleMobileMenu()">RÉSERVER</a>
-        <a href="#infos" onclick="toggleMobileMenu()">INFOS PRATIQUES</a>
-    </div>
-
-    <div class="menu-footer">OA 2026</div>
-</div>
 
     <header id="accueil">
-    <div class="bg-overlay"></div>
-    <div class="hero-bg" style="background-image: url('omerfond.jpg');"></div>
-    
-    <div class="hero-content">
-        <img src="logo.png" alt="Adidas Arena" class="venue-logo">
-        <div class="hero-date">20.01.2026</div>
-        <h1 class="main-title">OMER ADAM</h1>
-        <p class="sub-hero">LE PREMIER CONCERT EN FRANCE</p>
-        <a href="#billetterie" class="cta-button">RÉSERVER MA PLACE</a>
-    </div>
-</header>
+        <div class="bg-overlay"></div>
+        <div class="hero-bg" style="background-image: url('omerfond.jpg');"></div>
+        
+        <div class="hero-content">
+            <img src="logo.png" alt="Adidas Arena" class="venue-logo">
+            <div class="hero-date">20.01.2026</div>
+            <h1 class="main-title">OMER ADAM</h1>
+            <p class="sub-hero">LE PREMIER CONCERT EN FRANCE</p>
+            
+            <a href="#" class="cta-button disabled-link" style="background: #444; color: #aaa; border: 1px solid #666;">OUVERTURE PROCHAINE</a>
+        </div>
+    </header>
 
- <section id="experience" class="section">
+    <section id="experience" class="section">
         <div class="container">
             <h2 class="section-title">CHOISISSEZ VOTRE PLACE</h2>
             <div class="albums-display">
@@ -128,7 +139,7 @@
     <section id="billetterie" class="section dark-section">
         <div class="container">
             <h2 class="section-title">PLAN DE SALLE</h2>
-            <p class="subtitle-center">Sélectionnez une zone sur le plan pour ajouter au panier</p>
+            <p class="subtitle-center">La billetterie ouvrira très prochainement</p>
             
             <div class="ticket-interface">
                 <div class="map-container">
@@ -136,99 +147,102 @@
                         <path d="M150,50 L350,50 L350,100 L150,100 Z" class="stage-zone" />
                         <text x="250" y="80" text-anchor="middle" fill="#555" font-size="12" font-weight="bold">SCÈNE</text>
 
-                        <path id="zone-fosse-or" d="M170,110 L330,110 L330,200 L170,200 Z" class="clickable-zone zone-gold" onclick="addToCart('Fosse Or', 0)"/>
+                        <path id="zone-fosse-or" d="M170,110 L330,110 L330,200 L170,200 Z" class="clickable-zone zone-gold"/>
                         <text x="250" y="160" text-anchor="middle" fill="white" font-size="10" pointer-events="none">FOSSE OR</text>
 
-                        <path id="zone-fosse" d="M150,210 L350,210 L350,300 L150,300 Z" class="clickable-zone zone-fosse" onclick="addToCart('Fosse Debout', 0)"/>
+                        <path id="zone-fosse" d="M150,210 L350,210 L350,300 L150,300 Z" class="clickable-zone zone-fosse"/>
                         <text x="250" y="260" text-anchor="middle" fill="white" font-size="10" pointer-events="none">FOSSE</text>
 
-                        <path id="zone-cat1-L" d="M50,100 L140,100 L140,300 L50,300 Z" class="clickable-zone zone-cat1" onclick="addToCart('Catégorie 1', 0)"/>
+                        <path id="zone-cat1-L" d="M50,100 L140,100 L140,300 L50,300 Z" class="clickable-zone zone-cat1"/>
                         <text x="95" y="200" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 1</text>
                         
-                        <path id="zone-cat1-R" d="M360,100 L450,100 L450,300 L360,300 Z" class="clickable-zone zone-cat1" onclick="addToCart('Catégorie 1', 0)"/>
+                        <path id="zone-cat1-R" d="M360,100 L450,100 L450,300 L360,300 Z" class="clickable-zone zone-cat1"/>
                         <text x="405" y="200" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 1</text>
 
-                        <path id="zone-cat2" d="M150,310 L350,310 L350,380 L150,380 Z" class="clickable-zone zone-cat2" onclick="addToCart('Catégorie 2', 0)"/>
+                        <path id="zone-cat2" d="M150,310 L350,310 L350,380 L150,380 Z" class="clickable-zone zone-cat2"/>
                         <text x="250" y="350" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 2</text>
                     </svg>
                     
                     <div class="tooltip" id="mapTooltip"></div>
                 </div>
 
-               <div class="selection-panel">
-    <div class="category-row">
-        <div class="cat-info">
-            <span class="dot gold"></span>
-            <div>
-                <h4>Fosse Or</h4>
-                <small>Au plus près d'Omer</small>
-            </div>
-        </div>
-        <div class="price-action">
-            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
-            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
-                <i class="fas fa-lock"></i>
-            </button>
-        </div>
-    </div>
+                <div class="selection-panel">
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot gold"></span>
+                            <div>
+                                <h4>Fosse Or</h4>
+                                <small>Au plus près d'Omer</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+                            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                                <i class="fas fa-lock"></i>
+                            </button>
+                        </div>
+                    </div>
 
-    <div class="category-row">
-        <div class="cat-info">
-            <span class="dot blue"></span>
-            <div>
-                <h4>Fosse Debout</h4>
-                <small>Ambiance garantie</small>
-            </div>
-        </div>
-        <div class="price-action">
-            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
-            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
-                <i class="fas fa-lock"></i>
-            </button>
-        </div>
-    </div>
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot blue"></span>
+                            <div>
+                                <h4>Fosse Debout</h4>
+                                <small>Ambiance garantie</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+                            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                                <i class="fas fa-lock"></i>
+                            </button>
+                        </div>
+                    </div>
 
-    <div class="category-row">
-        <div class="cat-info">
-            <span class="dot white"></span>
-            <div>
-                <h4>Catégorie 1</h4>
-                <small>Assis numéroté</small>
-            </div>
-        </div>
-        <div class="price-action">
-            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
-            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
-                <i class="fas fa-lock"></i>
-            </button>
-        </div>
-    </div>
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot white"></span>
+                            <div>
+                                <h4>Catégorie 1</h4>
+                                <small>Assis numéroté</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+                            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                                <i class="fas fa-lock"></i>
+                            </button>
+                        </div>
+                    </div>
 
-    <div class="category-row">
-        <div class="cat-info">
-            <span class="dot grey"></span>
-            <div>
-                <h4>Catégorie 2</h4>
-                <small>Vue panoramique</small>
+                    <div class="category-row">
+                        <div class="cat-info">
+                            <span class="dot grey"></span>
+                            <div>
+                                <h4>Catégorie 2</h4>
+                                <small>Vue panoramique</small>
+                            </div>
+                        </div>
+                        <div class="price-action">
+                            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+                            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                                <i class="fas fa-lock"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <div class="price-action">
-            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
-            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
-                <i class="fas fa-lock"></i>
-            </button>
-        </div>
-    </div>
-</div>
     </section>
 
     <footer id="infos">
         <div class="footer-content">
             <div class="col">
-    <h3>ADIDAS ARENA</h3>
-    <p>Porte de la Chapelle<br>75018 Paris, France</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=Adidas+Arena+Paris" target="_blank" class="footer-link">Voir sur Maps</a>
-</div>
+                <h3>ADIDAS ARENA</h3>
+                <p>Porte de la Chapelle<br>75018 Paris, France</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Adidas+Arena+Paris" target="_blank" class="footer-link">Voir sur Maps</a>
+            </div>
             <div class="col">
                 <h3>CONTACT</h3>
                 <p>Pour toute question sur la billetterie :</p>
@@ -244,7 +258,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2026 Production. Tous droits réservés. Site officiel du concert.
+            © 2026 Production. Tous droits réservés. Site officiel du concert.
         </div>
     </footer>
 
@@ -261,15 +275,15 @@
             </div>
         </div>
         <audio id="audioSource" loop>
-    <source src="musique.mp3" type="audio/mp3">
-</audio>
+            <source src="musique.mp3" type="audio/mp3">
+        </audio>
     </div>
 
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>VOTRE PANIER</h2>
-            <button onclick="toggleCart()" class="close-cart">&times;</button>
+            <button onclick="toggleCart()" class="close-cart">×</button>
         </div>
         <div class="cart-body" id="cartItems">
             </div>
@@ -278,13 +292,12 @@
                 <span>Total Estimé</span>
                 <span id="cartTotal">0,00 €</span>
             </div>
-            <button class="btn-whatsapp" onclick="checkoutWhatsApp()">
+            <button class="btn-whatsapp disabled-link" style="opacity:0.5; cursor:not-allowed;">
                 <i class="fab fa-whatsapp"></i> Finaliser sur WhatsApp
             </button>
         </div>
     </div>
     
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
@@ -336,56 +349,12 @@
             }
         }
     </script>
-    <div id="modal-overlay" class="modal-hidden">
-    <div class="modal-box">
-        <span id="close-modal">&times;</span>
-        <h2>LISTE D'ATTENTE VIP</h2>
-        <p>Soyez les premiers informés de l'ouverture.</p>
-
-        <form action="https://formsubmit.co/omeradamconcert@gmail.com" method="POST">
-
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://omeradam-paris-billets.com/merci.html">
-
-            <div class="input-group">
-                <input type="text" name="nom" placeholder="Nom" required>
-                <input type="text" name="prenom" placeholder="Prénom" required>
-            </div>
-
-            <input type="tel" name="telephone" placeholder="Numéro de téléphone" required>
-
-            <textarea name="demande" placeholder="Combien de places ? Quel type ? (Carré Or, Fosse...)" rows="3"></textarea>
-
-            <button type="submit" class="submit-btn">VALIDER MON INSCRIPTION</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    const modal = document.getElementById('modal-overlay');
-    const btn = document.getElementById('alert-btn');
-    const close = document.getElementById('close-modal');
-
-    btn.onclick = function() { modal.style.display = "flex"; }
-    close.onclick = function() { modal.style.display = "none"; }
-    window.onclick = function(event) {
-        if (event.target == modal) { modal.style.display = "none"; }
-    }
-</script>
+    
     <div style="opacity: 0.1; height: 1px; overflow: hidden;">
-    <h1>Billets Concert Omer Adam Paris 2026</h1>
-    <p>Réservez vos places pour le concert événement d'Omer Adam à Paris. La star israélienne revient en France pour un show unique.</p>
-    <p>Date : 2026. Lieu : Paris. Billetterie officielle pour acheter vos tickets en catégorie Carré Or, Fosse et Gradins.</p>
-    <p>Inscrivez-vous à l'alerte pour l'ouverture de la vente des billets Omer Adam Paris.</p>
-</div>
+        <h1>Billets Concert Omer Adam Paris 2026</h1>
+        <p>Réservez vos places pour le concert événement d'Omer Adam à Paris. La star israélienne revient en France pour un show unique.</p>
+        <p>Date : 2026. Lieu : Paris. Billetterie officielle pour acheter vos tickets en catégorie Carré Or, Fosse et Gradins.</p>
+        <p>Inscrivez-vous à l'alerte pour l'ouverture de la vente des billets Omer Adam Paris.</p>
+    </div>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
