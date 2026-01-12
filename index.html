@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* 1. FORCE LE BOUTON ENTRER A ETRE VISIBLE */
+        /* 1. ECRAN D'ACCUEIL (ENTRER) */
         #welcome-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -60,7 +60,7 @@
             color: #000;
         }
 
-        /* 2. BLOQUAGE DES CLICS SUR LA CARTE */
+        /* 2. BLOQUER CLICS SUR CARTE & BOUTONS */
         .clickable-zone {
             pointer-events: none !important;
             cursor: default !important;
@@ -75,9 +75,9 @@
             cursor: default;
         }
         
-        /* 3. EMPECHE DEFILMENET AU DEBUT */
+        /* 3. BLOQUER LE DEFILEMENT AVANT LE CLIC */
         body {
-            overflow: hidden; /* Bloqué par défaut */
+            overflow: hidden; 
         }
     </style>
 </head>
@@ -88,11 +88,6 @@
             <h1>OMER ADAM-PARIS 2026</h1>
             <button onclick="startExperience()">ENTRER</button>
         </div>
-    </div>
-
-    <div class="loader" id="siteLoader" style="z-index: 9999;">
-        <div class="loader-text">CHARGEMENT...</div>
-        <div class="loader-bar"><span></span></div>
     </div>
 
     <nav class="navbar">
@@ -315,7 +310,6 @@
         function startExperience() {
             var audio = document.getElementById("audioSource");
             var welcome = document.getElementById("welcome-screen");
-            var loader = document.getElementById("siteLoader");
             var btnIcon = document.querySelector("#playPauseBtn i"); 
             var visualizer = document.getElementById("visualizer");
 
@@ -335,15 +329,17 @@
                 welcome.style.opacity = "0";
                 setTimeout(() => { welcome.style.display = "none"; }, 500);
             }
-            // Cacher le loader
-            if(loader) {
-                loader.style.opacity = "0";
-                setTimeout(() => { loader.style.display = "none"; }, 800);
-            }
             
             // *** CRUCIAL : DÉBLOQUER LE SCROLL ***
             document.body.style.overflow = "auto";
         }
     </script>
+    
+    <div style="opacity: 0.1; height: 1px; overflow: hidden;">
+        <h1>Billets Concert Omer Adam Paris 2026</h1>
+        <p>Réservez vos places pour le concert événement d'Omer Adam à Paris. La star israélienne revient en France pour un show unique.</p>
+        <p>Date : 2026. Lieu : Paris. Billetterie officielle pour acheter vos tickets en catégorie Carré Or, Fosse et Gradins.</p>
+        <p>Inscrivez-vous à l'alerte pour l'ouverture de la vente des billets Omer Adam Paris.</p>
+    </div>
 </body>
 </html>
