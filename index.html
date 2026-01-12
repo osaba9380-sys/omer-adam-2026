@@ -16,23 +16,17 @@
 <link rel="shortcut icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+    /* Empêche de cliquer sur le plan */
+    .clickable-zone {
+        pointer-events: none !important;
+        cursor: default !important;
+        opacity: 0.5; /* Rend les zones un peu plus ternes */
+    }
+</style>
 </head>
 <body>
-    <div id="site-lock">
-    <div class="lock-content">
-        <h1>OMER ADAM PARIS 2026</h1>
-        <p>LES BILLETS SERONT DISPONIBLES TRÈS PROCHAINEMENT...</p>
-        <div class="lock-spinner"></div>
-        <button id="alert-btn" class="gold-btn">M'INSCRIRE À L'ALERTE 🔔</button>
-        <div class="legal-disclaimer">
-    <p>⚠️ <strong>INFORMATION IMPORTANTE</strong></p>
-    <p>Ceci est un site de revente pour le concert</p>
-    <p style="margin-top: 5px; color: #D4AF37;">Les billets proposés sont 100% officiels et certifiés.</p>
-</div>
-    </div>
-        
-</div>
-
+    
     <div id="welcome-screen">
         <div class="welcome-content">
             <h1>OMER ADAM-PARIS 2026</h1>
@@ -161,65 +155,71 @@
                     <div class="tooltip" id="mapTooltip"></div>
                 </div>
 
-                <div class="selection-panel">
-                    <div class="category-row">
-                        <div class="cat-info">
-                            <span class="dot gold"></span>
-                            <div>
-                                <h4>Fosse Or</h4>
-                                <small>Au plus près d'Omer</small>
-                            </div>
-                        </div>
-                        <div class="price-action">
-                            <span>0,00 €</span>
-                            <button class="btn-add" onclick="addToCart('Fosse Or', 0)">+</button>
-                        </div>
-                    </div>
-
-                    <div class="category-row">
-                        <div class="cat-info">
-                            <span class="dot blue"></span>
-                            <div>
-                                <h4>Fosse Debout</h4>
-                                <small>Ambiance garantie</small>
-                            </div>
-                        </div>
-                        <div class="price-action">
-                            <span>0,00 €</span>
-                            <button class="btn-add" onclick="addToCart('Fosse Debout', 0)">+</button>
-                        </div>
-                    </div>
-
-                    <div class="category-row">
-                        <div class="cat-info">
-                            <span class="dot white"></span>
-                            <div>
-                                <h4>Catégorie 1</h4>
-                                <small>Assis numéroté</small>
-                            </div>
-                        </div>
-                        <div class="price-action">
-                            <span>0,00 €</span>
-                            <button class="btn-add" onclick="addToCart('Catégorie 1', 0)">+</button>
-                        </div>
-                    </div>
-
-                    <div class="category-row">
-                        <div class="cat-info">
-                            <span class="dot grey"></span>
-                            <div>
-                                <h4>Catégorie 2</h4>
-                                <small>Vue panoramique</small>
-                            </div>
-                        </div>
-                        <div class="price-action">
-                            <span>0,00 €</span>
-                            <button class="btn-add" onclick="addToCart('Catégorie 2', 0)">+</button>
-                        </div>
-                    </div>
-                </div>
+               <div class="selection-panel">
+    <div class="category-row">
+        <div class="cat-info">
+            <span class="dot gold"></span>
+            <div>
+                <h4>Fosse Or</h4>
+                <small>Au plus près d'Omer</small>
             </div>
         </div>
+        <div class="price-action">
+            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                <i class="fas fa-lock"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="category-row">
+        <div class="cat-info">
+            <span class="dot blue"></span>
+            <div>
+                <h4>Fosse Debout</h4>
+                <small>Ambiance garantie</small>
+            </div>
+        </div>
+        <div class="price-action">
+            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                <i class="fas fa-lock"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="category-row">
+        <div class="cat-info">
+            <span class="dot white"></span>
+            <div>
+                <h4>Catégorie 1</h4>
+                <small>Assis numéroté</small>
+            </div>
+        </div>
+        <div class="price-action">
+            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                <i class="fas fa-lock"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="category-row">
+        <div class="cat-info">
+            <span class="dot grey"></span>
+            <div>
+                <h4>Catégorie 2</h4>
+                <small>Vue panoramique</small>
+            </div>
+        </div>
+        <div class="price-action">
+            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">BIENTÔT</span>
+            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;">
+                <i class="fas fa-lock"></i>
+            </button>
+        </div>
+    </div>
+</div>
     </section>
 
     <footer id="infos">
@@ -381,6 +381,7 @@
 </body>
 
 </html>
+
 
 
 
