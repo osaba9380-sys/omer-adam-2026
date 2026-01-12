@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* 1. ECRAN D'ACCUEIL (ENTRER) - IL REVIENT ! */
+        /* --- 1. ECRAN D'ACCUEIL (ENTRER) --- */
         #welcome-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -70,7 +70,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 2. BLOQUER CLICS SUR CARTE & BOUTONS */
+        /* --- 2. SÉCURITÉ : GESTION DU SCROLL --- */
+        /* Par défaut (quand on est entré), on FORCE le scroll à marcher */
+        html, body {
+            overflow-y: auto !important; 
+            height: auto !important;
+        }
+
+        /* UNIQUEMENT quand la classe 'no-scroll' est là (au début), on bloque */
+        body.no-scroll {
+            overflow: hidden !important;
+            height: 100% !important;
+        }
+
+        /* --- 3. BLOQUER CLICS SUR CARTE & BOUTONS --- */
         .clickable-zone {
             pointer-events: none !important;
             cursor: default !important;
@@ -84,14 +97,12 @@
             pointer-events: none;
             cursor: default;
         }
-        
-        /* 3. BLOQUER LE SCROLL AU DÉBUT */
-        body.no-scroll {
-            overflow: hidden;
-        }
     </style>
 </head>
-<body class="no-scroll"> <div id="welcome-screen">
+
+<body class="no-scroll">
+
+    <div id="welcome-screen">
         <div class="welcome-content">
             <h1>OMER ADAM PARIS 2026</h1>
             <button onclick="startExperience()">ENTRER</button>
@@ -318,33 +329,39 @@
             icon.classList.toggle('open');
         }
 
-        // --- 2. FONCTION ENTRER ---
+        // --- 2. FONCTION ENTRER (CŒUR DU SYSTÈME) ---
         function startExperience() {
             var audio = document.getElementById("audioSource");
             var welcome = document.getElementById("welcome-screen");
             var btnIcon = document.querySelector("#playPauseBtn i"); 
             var visualizer = document.getElementById("visualizer");
 
-            // Musique
+            // 1. Lancer la musique
             if(audio) {
                 audio.play().catch(e => console.log("Lecture auto bloquée par navigateur"));
             }
-            // Icone Pause
+            
+            // 2. Mettre l'icone en Pause
             if(btnIcon) {
                 btnIcon.classList.remove("fa-play");
                 btnIcon.classList.add("fa-pause");
             }
             if(visualizer) visualizer.classList.add("playing");
 
-            // Animation disparition
+            // 3. Faire disparaître l'écran d'accueil
             if(welcome) {
                 welcome.style.opacity = "0";
                 setTimeout(() => { welcome.style.display = "none"; }, 500);
             }
             
-            // DÉBLOQUER LE SCROLL
+            // 4. DÉBLOQUER LE SCROLL (IMPORTANT)
+            // On enlève la classe qui bloque
             document.body.classList.remove("no-scroll");
+            
+            // Ceinture et bretelles : on force le style directement
+            document.documentElement.style.overflow = "auto";
             document.body.style.overflow = "auto";
+            document.body.style.height = "auto";
         }
     </script>
     
