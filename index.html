@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- 1. ECRAN D'ACCUEIL --- */
+        /* --- 1. ECRAN D'ACCUEIL (ENTRER) --- */
         #welcome-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -29,7 +29,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease-out; /* Disparition fluide */
         }
         
         #welcome-screen .welcome-content {
@@ -46,23 +46,35 @@
             text-transform: uppercase;
         }
 
+        /* BOUTON ENTRER AVEC ANIMATION */
         #welcome-screen button {
-            padding: 15px 50px;
-            font-size: 1.2rem;
+            padding: 20px 60px;
+            font-size: 1.5rem;
             background: transparent;
             color: #fff;
             border: 2px solid #fff;
             cursor: pointer;
-            transition: 0.3s;
             font-family: 'Montserrat', sans-serif;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 50px;
+            /* Animation de pulsation */
+            animation: enterPulse 2s infinite;
+            transition: 0.3s;
         }
 
         #welcome-screen button:hover {
             background: #fff;
             color: #000;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        @keyframes enterPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); transform: scale(1); }
         }
 
         @keyframes fadeIn {
@@ -70,176 +82,88 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 2. SCROLL --- */
+        /* --- 2. SCROLL & STRUCTURE --- */
         html, body {
             overflow-y: auto !important; 
             height: auto !important;
         }
-
         body.no-scroll {
             overflow: hidden !important;
             height: 100% !important;
         }
 
-        /* --- 3. ZONES ET BOUTONS --- */
+        /* --- 3. BOUTON URGENT (GLOW ROUGE) --- */
+        .cta-button.urgent-glow {
+            background-color: #ff4757 !important;
+            color: white !important;
+            border: none !important;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.6), 0 0 40px rgba(255, 71, 87, 0.4);
+            animation: glowPulse 1.5s infinite alternate ease-in-out;
+            cursor: pointer;
+            pointer-events: auto !important;
+        }
+        @keyframes glowPulse {
+            from { transform: scale(1); box-shadow: 0 0 20px rgba(255, 71, 87, 0.6); }
+            to { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 71, 87, 0.9), 0 0 60px rgba(255, 71, 87, 0.7); }
+        }
+
+        /* --- 4. ZONES CARTE --- */
         .clickable-zone {
             pointer-events: none !important;
             cursor: default !important;
             opacity: 0.3;
         }
         
-        /* Exception : Catégorie 2 active */
+        /* CATÉGORIE 2 ACTIVE (VERTE POUR DISPO) */
         #zone-cat2 {
             pointer-events: auto !important;
             cursor: pointer !important;
             opacity: 1 !important;
-            fill: #ff4757 !important; /* Rouge Urgence */
+            fill: #25D366 !important; /* Vert = Disponible */
         }
 
-        .btn-add:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .cta-button.disabled-link {
-            pointer-events: none;
-            cursor: default;
-        }
+        .btn-add:disabled { opacity: 0.6; cursor: not-allowed; }
+        .cta-button.disabled-link { pointer-events: none; cursor: default; }
 
-        /* --- 4. NOUVEAU WIDGET ALERTE (STYLE LUXE) --- */
+        /* --- 5. WIDGET ALERTE (STYLE LUXE) --- */
         .custom-modal-overlay {
-            display: none; /* Caché par défaut */
-            position: fixed;
+            display: none; position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); /* Fond noir transparent */
-            backdrop-filter: blur(5px); /* Effet flou */
-            z-index: 100000; /* Au dessus de tout */
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px);
+            z-index: 100000; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
         }
-
-        .custom-modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
+        .custom-modal-overlay.active { display: flex; opacity: 1; }
         .custom-modal-box {
-            background: #111;
-            border: 2px solid #ff4757; /* Bordure Rouge */
-            border-radius: 10px;
-            padding: 40px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
+            background: #111; border: 2px solid #ff4757; border-radius: 10px;
+            padding: 40px; width: 90%; max-width: 400px; text-align: center;
             box-shadow: 0 0 40px rgba(255, 71, 87, 0.3);
-            transform: scale(0.8);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .custom-modal-overlay.active .custom-modal-box {
-            transform: scale(1);
-        }
-
-        .custom-modal-icon {
-            font-size: 3rem;
-            color: #ff4757;
-            margin-bottom: 20px;
-        }
-
-        .custom-modal-title {
-            color: white;
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .custom-modal-text {
-            color: #ccc;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
+        .custom-modal-overlay.active .custom-modal-box { transform: scale(1); }
+        .custom-modal-icon { font-size: 3rem; color: #ff4757; margin-bottom: 20px; }
+        .custom-modal-title { color: white; font-family: 'Syne', sans-serif; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 10px; }
+        .custom-modal-text { color: #ccc; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; line-height: 1.6; margin-bottom: 30px; }
         .custom-modal-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-            width: 100%;
+            background: #ff4757; color: white; border: none; padding: 12px 30px;
+            font-size: 1rem; font-weight: bold; font-family: 'Montserrat', sans-serif;
+            cursor: pointer; border-radius: 5px; transition: 0.3s; width: 100%;
         }
-
-        .custom-modal-btn:hover {
-            background: #ff2e40;
-            box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
-        }
-
-        /* --- NOUVEAU STYLE BOUTON "URGENT GLOW" --- */
-        .cta-button.urgent-glow {
-            background-color: #ff4757 !important; /* Rouge vif */
-            color: white !important;
-            border: none !important;
-            font-weight: 800; /* Texte très gras */
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); /* Petit halo sur le texte */
-            /* Effet de lueur multicouche */
-            box-shadow: 
-                0 0 20px rgba(255, 71, 87, 0.6), 
-                0 0 40px rgba(255, 71, 87, 0.4), 
-                inset 0 0 15px rgba(255, 71, 87, 0.5);
-            /* Animation de "respiration" */
-            animation: glowPulse 1.5s infinite alternate ease-in-out;
-            cursor: pointer; /* Devient cliquable */
-            pointer-events: auto !important; /* Réactive les clics */
-            transition: all 0.3s ease;
-        }
-
-        /* L'animation qui fait pulser le bouton */
-        @keyframes glowPulse {
-            from {
-                box-shadow: 0 0 20px rgba(255, 71, 87, 0.6), 0 0 40px rgba(255, 71, 87, 0.4);
-                transform: scale(1);
-            }
-            to {
-                /* La lueur s'intensifie et le bouton grossit un peu */
-                box-shadow: 0 0 30px rgba(255, 71, 87, 0.9), 0 0 60px rgba(255, 71, 87, 0.7);
-                transform: scale(1.05);
-            }
-        }
-        
-        /* Effet quand on passe la souris dessus */
-        .cta-button.urgent-glow:hover {
-            transform: scale(1.1) !important;
-            background-color: #ff2e40 !important; /* Rouge encore plus vif */
-            box-shadow: 0 0 50px #ff4757, 0 0 100px #ff4757 !important; /* Explosion de lumière */
-        }
-
+        .custom-modal-btn:hover { background: #ff2e40; box-shadow: 0 0 15px rgba(255, 71, 87, 0.6); }
     </style>
-
-    
 </head>
 
 <body class="no-scroll">
 
     <div id="stockModal" class="custom-modal-overlay">
         <div class="custom-modal-box">
-            <div class="custom-modal-icon">
-                <i class="fas fa-exclamation-circle"></i>
-            </div>
+            <div class="custom-modal-icon"><i class="fas fa-exclamation-circle"></i></div>
             <h3 class="custom-modal-title">STOCK LIMITÉ</h3>
-            <p class="custom-modal-text">
-                Il ne reste qu'une <strong>seule place unique</strong>.<br>
-                Vous ne pouvez pas en ajouter d'autres au panier.
-            </p>
+            <p class="custom-modal-text">Il ne reste qu'une <strong>seule place unique</strong>.<br>Vous ne pouvez pas en ajouter d'autres.</p>
             <button class="custom-modal-btn" onclick="closeStockModal()">JE COMPRENDS</button>
         </div>
     </div>
@@ -252,21 +176,12 @@
     </div>
 
     <nav class="navbar">
-        <div class="hamburger-icon" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="logo">
-            <a href="#accueil" style="text-decoration:none; color:white;">OA <span>2026</span></a>
-        </div>
-
+        <div class="hamburger-icon" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+        <div class="logo"><a href="#accueil" style="text-decoration:none; color:white;">OA <span>2026</span></a></div>
         <div class="cart-trigger" onclick="toggleCart()"> 
             <span class="cart-text">PANIER</span> <i class="fas fa-shopping-bag"></i>
             <span class="cart-count">0</span>
         </div>
-
         <ul class="nav-links">
             <li><a href="#accueil">ACCUEIL</a></li>
             <li><a href="#billetterie">BILLETTERIE</a></li>
@@ -275,29 +190,24 @@
     </nav>
 
     <div id="mobile-menu-overlay">
-        <button class="menu-close-btn" onclick="toggleMobileMenu()">
-            <i class="fas fa-times"></i> FERMER
-        </button>
-
+        <button class="menu-close-btn" onclick="toggleMobileMenu()"><i class="fas fa-times"></i> FERMER</button>
         <div class="menu-content">
             <a href="#accueil" onclick="toggleMobileMenu()">ACCUEIL</a>
             <a href="#billetterie" onclick="toggleMobileMenu()">RÉSERVER</a>
             <a href="#infos" onclick="toggleMobileMenu()">INFOS PRATIQUES</a>
         </div>
-
         <div class="menu-footer">OA 2026</div>
     </div>
 
     <header id="accueil">
         <div class="bg-overlay"></div>
         <div class="hero-bg" style="background-image: url('omerfond.jpg');"></div>
-        
         <div class="hero-content">
             <img src="logo.png" alt="Adidas Arena" class="venue-logo">
             <div class="hero-date">20.01.2026</div>
             <h1 class="main-title">OMER ADAM</h1>
             <p class="sub-hero">LE PREMIER CONCERT EN FRANCE</p>
-           <a href="#billetterie" class="cta-button urgent-glow">DERNIÈRES PLACES DISPO</a>
+            <a href="#billetterie" class="cta-button urgent-glow">DERNIÈRES PLACES DISPO</a>
         </div>
     </header>
 
@@ -308,26 +218,17 @@
                 <div class="album-item">
                     <div class="card-icon"><i class="fas fa-users"></i></div>
                     <h3>CATÉGORIE 2</h3>
-                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px; line-height: 1.6;">
-                        <strong>VUE PANORAMIQUE</strong><br>
-                        Prenez de la hauteur et profitez d'une vue d'ensemble spectaculaire.
-                    </p>
+                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px; line-height: 1.6;"><strong>VUE PANORAMIQUE</strong><br>Prenez de la hauteur et profitez d'une vue d'ensemble spectaculaire.</p>
                 </div>
                 <div class="album-item center-album">
                     <div class="card-icon"><i class="fas fa-star"></i></div>
                     <h3 style="color: white;">CATÉGORIE 1</h3>
-                    <p style="font-size: 0.8rem; color: #fff; margin-top: 15px; line-height: 1.6;">
-                        <strong>CONFORT & PROXIMITÉ</strong><br>
-                        Vos places assises numérotées offrant une vue directe.
-                    </p>
+                    <p style="font-size: 0.8rem; color: #fff; margin-top: 15px; line-height: 1.6;"><strong>CONFORT & PROXIMITÉ</strong><br>Vos places assises numérotées offrant une vue directe.</p>
                 </div>
                 <div class="album-item">
                     <div class="card-icon"><i class="fas fa-crown"></i></div>
                     <h3>VIP GOLD</h3>
-                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px; line-height: 1.6;">
-                        <strong>L'EXPÉRIENCE ULTIME</strong><br>
-                        Les meilleures places de la salle avec accès salon privé.
-                    </p>
+                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px; line-height: 1.6;"><strong>L'EXPÉRIENCE ULTIME</strong><br>Les meilleures places de la salle avec accès salon privé.</p>
                 </div>
             </div>
         </div>
@@ -360,28 +261,21 @@
                               class="clickable-zone zone-cat2" 
                               style="cursor: pointer !important; opacity: 1 !important;"/>
                         
-                        <text x="250" y="350" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 5</text>
+                        <text x="250" y="350" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 2</text>
                     </svg>
                     <div class="tooltip" id="mapTooltip"></div>
                 </div>
 
                 <div class="selection-panel">
                     <div class="category-row">
-                        <div class="cat-info">
-                            <span class="dot gold"></span>
-                            <div><h4>Carré Or</h4><small>Au plus près d'Omer</small></div>
-                        </div>
+                        <div class="cat-info"><span class="dot gold"></span><div><h4>Carré Or</h4><small>Au plus près d'Omer</small></div></div>
                         <div class="price-action">
                             <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
                             <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
                         </div>
                     </div>
-                    
                     <div class="category-row">
-                        <div class="cat-info">
-                            <span class="dot blue"></span>
-                            <div><h4>Categorie 1</h4><small>Ambiance garantie</small></div>
-                        </div>
+                        <div class="cat-info"><span class="dot blue"></span><div><h4>Categorie 1</h4><small>Ambiance garantie</small></div></div>
                         <div class="price-action">
                             <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
                             <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
@@ -391,10 +285,7 @@
                     <div class="category-row" style="border: 2px solid #ff4757; background: rgba(255, 71, 87, 0.1);">
                         <div class="cat-info">
                             <span class="dot white" style="background: #ff4757; box-shadow: 0 0 10px #ff4757;"></span>
-                            <div>
-                                <h4 style="color: #ff4757;">Catégorie 2</h4>
-                                <small style="color: white; font-weight: bold;">⚠ DERNIÈRE PLACE DISPO</small>
-                            </div>
+                            <div><h4 style="color: #ff4757;">Catégorie 2</h4><small style="color: white; font-weight: bold;">⚠ DERNIÈRE PLACE DISPO</small></div>
                         </div>
                         <div class="price-action">
                             <span style="font-size: 1.1rem; font-weight: bold; color: #fff;">280 €</span>
@@ -403,10 +294,7 @@
                     </div>
 
                     <div class="category-row">
-                        <div class="cat-info">
-                            <span class="dot grey"></span>
-                            <div><h4>Catégorie 3-4-5</h4><small>Vue panoramique</small></div>
-                        </div>
+                        <div class="cat-info"><span class="dot grey"></span><div><h4>Catégorie 3-4-5</h4><small>Vue panoramique</small></div></div>
                         <div class="price-action">
                             <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
                             <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
@@ -419,43 +307,20 @@
 
     <footer id="infos">
         <div class="footer-content">
-            <div class="col">
-                <h3>ADIDAS ARENA</h3>
-                <p>Porte de la Chapelle<br>75018 Paris, France</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=Adidas+Arena+Paris" target="_blank" class="footer-link">Voir sur Maps</a>
-            </div>
-            <div class="col">
-                <h3>CONTACT</h3>
-                <p>Pour toute question sur la billetterie :</p>
-                <a href="mailto:contact@omeradam2026.com" class="footer-link">contact@omeradam2026.com</a>
-            </div>
-            <div class="col">
-                <h3>SUIVEZ OMER</h3>
-                <div class="socials">
-                    <a href="https://www.instagram.com/omeradam"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/OmerAdamOfficial"><i class="fab fa-youtube"></i></a>
-                    <a href="https://open.spotify.com/intl-fr/artist/1IAEef07H0fd9aA8aUHUlL"><i class="fab fa-spotify"></i></a>
-                </div>
-            </div>
+            <div class="col"><h3>ADIDAS ARENA</h3><p>Porte de la Chapelle<br>75018 Paris, France</p><a href="https://www.google.com/maps/search/?api=1&query=Adidas+Arena+Paris" target="_blank" class="footer-link">Voir sur Maps</a></div>
+            <div class="col"><h3>CONTACT</h3><p>Pour toute question sur la billetterie :</p><a href="mailto:contact@omeradam2026.com" class="footer-link">contact@omeradam2026.com</a></div>
+            <div class="col"><h3>SUIVEZ OMER</h3><div class="socials"><a href="https://www.instagram.com/omeradam"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/OmerAdamOfficial"><i class="fab fa-youtube"></i></a><a href="https://open.spotify.com/intl-fr/artist/1IAEef07H0fd9aA8aUHUlL"><i class="fab fa-spotify"></i></a></div></div>
         </div>
         <div class="footer-bottom">© 2026 Production. Tous droits réservés.</div>
     </footer>
 
     <div class="music-player-container">
-        <div class="track-info">
-           <span class="scrolling-text">עומר אדם - מלכת הדור • OMER ADAM - MALKAT HADOR • עומר אדם - מלכת הדור •</span>
-        </div>
+        <div class="track-info"><span class="scrolling-text">עומר אדם - מלכת הדור • OMER ADAM - MALKAT HADOR • עומר אדם - מלכת הדור •</span></div>
         <div class="player-controls">
-            <button id="playPauseBtn" onclick="toggleMusic()">
-                <i class="fas fa-play"></i>
-            </button>
-            <div class="visualizer" id="visualizer">
-                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-            </div>
+            <button id="playPauseBtn" onclick="toggleMusic()"><i class="fas fa-play"></i></button>
+            <div class="visualizer" id="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
         </div>
-        <audio id="audioSource" loop>
-            <source src="musique.mp3" type="audio/mp3">
-        </audio>
+        <audio id="audioSource" loop><source src="musique.mp3" type="audio/mp3"></audio>
     </div>
 
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
@@ -464,9 +329,7 @@
         <div class="cart-body" id="cartItems"></div>
         <div class="cart-footer">
             <div class="total-row"><span>Total Estimé</span><span id="cartTotal">0,00 €</span></div>
-            <button id="btnWhatsappCheckout" class="btn-whatsapp" onclick="checkoutWhatsApp()">
-                <i class="fab fa-whatsapp"></i> Finaliser sur WhatsApp
-            </button>
+            <button id="btnWhatsappCheckout" class="btn-whatsapp" onclick="checkoutWhatsApp()"><i class="fab fa-whatsapp"></i> Finaliser sur WhatsApp</button>
         </div>
     </div>
     
@@ -475,6 +338,11 @@
     <script src="script.js"></script>
 
     <script>
+        // --- 0. FIXE LE SCROLL EN HAUT (RELOAD) ---
+        if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
+        window.onbeforeunload = function () { window.scrollTo(0, 0); }
+        window.onload = function() { window.scrollTo(0, 0); }
+
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu-overlay');
             const icon = document.querySelector('.hamburger-icon');
@@ -482,24 +350,23 @@
             icon.classList.toggle('open');
         }
 
+        // --- 1. FONCTION ENTRER ---
         function startExperience() {
+            // FIXE SCROLL EN HAUT
+            window.scrollTo(0, 0);
+
             var audio = document.getElementById("audioSource");
             var welcome = document.getElementById("welcome-screen");
             var btnIcon = document.querySelector("#playPauseBtn i"); 
             var visualizer = document.getElementById("visualizer");
 
-            if(audio) {
-                audio.play().catch(e => console.log("Lecture auto bloquée par navigateur"));
-            }
-            if(btnIcon) {
-                btnIcon.classList.remove("fa-play");
-                btnIcon.classList.add("fa-pause");
-            }
+            if(audio) { audio.play().catch(e => console.log("Lecture auto bloquée")); }
+            if(btnIcon) { btnIcon.classList.remove("fa-play"); btnIcon.classList.add("fa-pause"); }
             if(visualizer) visualizer.classList.add("playing");
 
             if(welcome) {
                 welcome.style.opacity = "0";
-                setTimeout(() => { welcome.style.display = "none"; }, 500);
+                setTimeout(() => { welcome.style.display = "none"; }, 800); // 800ms pour laisser le temps au fade out
             }
             
             document.body.classList.remove("no-scroll");
@@ -508,49 +375,30 @@
             document.body.style.height = "auto";
         }
 
-        // --- GESTION DU WIDGET ALERTE (OUVERTURE / FERMETURE) ---
-        function showStockModal() {
-            document.getElementById('stockModal').classList.add('active');
-        }
+        // --- 2. GESTION DU WIDGET ALERTE ---
+        function showStockModal() { document.getElementById('stockModal').classList.add('active'); }
+        function closeStockModal() { document.getElementById('stockModal').classList.remove('active'); }
 
-        function closeStockModal() {
-            document.getElementById('stockModal').classList.remove('active');
-        }
-
-        // --- FONCTION AJOUT SÉCURISÉ (QUANTITÉ 1 MAX) ---
+        // --- 3. AJOUT SÉCURISÉ (MAX 1) ---
         function addUniqueItem(category, price) {
-            // Vérifie si le panier contient déjà quelque chose
             const cartContainer = document.getElementById('cartItems');
-            
             if(cartContainer && cartContainer.children.length > 0) {
-                 // ICI ON LANCE LE WIDGET PERSONNALISÉ AU LIEU DE ALERT()
-                 showStockModal();
+                 showStockModal(); // Lance le widget luxe
                  return; 
             }
-
-            // Si le panier est vide, on ajoute normalement
             if(typeof addToCart === 'function') {
                 addToCart(category, price);
-                toggleCart(); // On ouvre le panier pour montrer l'article
+                toggleCart();
             }
         }
 
-        // --- PAIEMENT WHATSAPP CONFIGURÉ ---
+        // --- 4. CHECKOUT WHATSAPP (+972) ---
         function checkoutWhatsApp() {
             let total = document.getElementById('cartTotal').innerText;
-            
-            // Si panier vide
-            if(total === "0,00 €" || total === "0 €") {
-                alert("Votre panier est vide");
-                return;
-            }
-
-            // Numéro ISRAÉLIEN
+            if(total === "0,00 €" || total === "0 €") { alert("Votre panier est vide"); return; }
             let phone = "972503524964";
             let message = "Bonjour, je souhaite acheter la DERNIÈRE PLACE (Catégorie 2). Total : " + total;
-            
-            let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
-            window.open(url, '_blank');
+            window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), '_blank');
         }
     </script>
     
@@ -562,4 +410,3 @@
     </div>
 </body>
 </html>
-
