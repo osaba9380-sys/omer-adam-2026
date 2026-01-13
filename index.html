@@ -221,7 +221,7 @@
                         <text x="405" y="200" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 3-4</text>
                         
                         <path id="zone-cat2" d="M150,310 L350,310 L350,380 L150,380 Z" 
-                              onclick="addToCart('Catégorie 2', 280)"
+                              onclick="addUniqueItem('Catégorie 2', 280)"
                               class="clickable-zone zone-cat2" 
                               style="cursor: pointer !important; opacity: 1 !important;"/>
                         
@@ -263,7 +263,7 @@
                         </div>
                         <div class="price-action">
                             <span style="font-size: 1.1rem; font-weight: bold; color: #fff;">280 €</span>
-                            <button class="btn-add" onclick="addToCart('Catégorie 2', 280)" style="background-color: #ff4757; color: white; border: none; cursor: pointer;">+</button>
+                            <button class="btn-add" onclick="addUniqueItem('Catégorie 2', 280)" style="background-color: #ff4757; color: white; border: none; cursor: pointer;">+</button>
                         </div>
                     </div>
 
@@ -373,12 +373,27 @@
             document.body.style.height = "auto";
         }
 
-        // --- NOUVEAU SYSTÈME DE PAIEMENT PANIER ---
-        // Cette fonction écrase celle de script.js pour s'assurer que ça va au bon numéro
+        // --- NOUVELLE FONCTION AJOUT SÉCURISÉ (QUANTITÉ 1 MAX) ---
+        function addUniqueItem(category, price) {
+            // Vérifie si le panier contient déjà quelque chose
+            const cartContainer = document.getElementById('cartItems');
+            if(cartContainer && cartContainer.children.length > 0) {
+                 alert("⚠️ STOCK LIMITÉ : Il ne reste qu'une seule place. Vous ne pouvez pas en ajouter d'autres.");
+                 return; // On arrête tout, on n'ajoute pas
+            }
+
+            // Si le panier est vide, on ajoute normalement
+            if(typeof addToCart === 'function') {
+                addToCart(category, price);
+                toggleCart(); // On ouvre le panier pour montrer l'article
+            }
+        }
+
+        // --- PAIEMENT WHATSAPP CONFIGURÉ ---
         function checkoutWhatsApp() {
             let total = document.getElementById('cartTotal').innerText;
             
-            // Si panier vide, on alerte
+            // Si panier vide
             if(total === "0,00 €" || total === "0 €") {
                 alert("Votre panier est vide");
                 return;
