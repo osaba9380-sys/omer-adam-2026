@@ -182,7 +182,50 @@
             box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
         }
 
+        /* --- NOUVEAU STYLE BOUTON "URGENT GLOW" --- */
+        .cta-button.urgent-glow {
+            background-color: #ff4757 !important; /* Rouge vif */
+            color: white !important;
+            border: none !important;
+            font-weight: 800; /* Texte très gras */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); /* Petit halo sur le texte */
+            /* Effet de lueur multicouche */
+            box-shadow: 
+                0 0 20px rgba(255, 71, 87, 0.6), 
+                0 0 40px rgba(255, 71, 87, 0.4), 
+                inset 0 0 15px rgba(255, 71, 87, 0.5);
+            /* Animation de "respiration" */
+            animation: glowPulse 1.5s infinite alternate ease-in-out;
+            cursor: pointer; /* Devient cliquable */
+            pointer-events: auto !important; /* Réactive les clics */
+            transition: all 0.3s ease;
+        }
+
+        /* L'animation qui fait pulser le bouton */
+        @keyframes glowPulse {
+            from {
+                box-shadow: 0 0 20px rgba(255, 71, 87, 0.6), 0 0 40px rgba(255, 71, 87, 0.4);
+                transform: scale(1);
+            }
+            to {
+                /* La lueur s'intensifie et le bouton grossit un peu */
+                box-shadow: 0 0 30px rgba(255, 71, 87, 0.9), 0 0 60px rgba(255, 71, 87, 0.7);
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Effet quand on passe la souris dessus */
+        .cta-button.urgent-glow:hover {
+            transform: scale(1.1) !important;
+            background-color: #ff2e40 !important; /* Rouge encore plus vif */
+            box-shadow: 0 0 50px #ff4757, 0 0 100px #ff4757 !important; /* Explosion de lumière */
+        }
+
     </style>
+
+    
 </head>
 
 <body class="no-scroll">
@@ -254,7 +297,7 @@
             <div class="hero-date">20.01.2026</div>
             <h1 class="main-title">OMER ADAM</h1>
             <p class="sub-hero">LE PREMIER CONCERT EN FRANCE</p>
-            <a href="#" class="cta-button disabled-link" style="background: #444; color: #aaa; border: 1px solid #666;">OUVERTURE PROCHAINE</a>
+           <a href="#billetterie" class="cta-button urgent-glow">DERNIÈRES PLACES DISPO</a>
         </div>
     </header>
 
@@ -519,3 +562,4 @@
     </div>
 </body>
 </html>
+
