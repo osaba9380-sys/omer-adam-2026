@@ -104,10 +104,102 @@
             pointer-events: none;
             cursor: default;
         }
+
+        /* --- 4. NOUVEAU WIDGET ALERTE (STYLE LUXE) --- */
+        .custom-modal-overlay {
+            display: none; /* Caché par défaut */
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); /* Fond noir transparent */
+            backdrop-filter: blur(5px); /* Effet flou */
+            z-index: 100000; /* Au dessus de tout */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .custom-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .custom-modal-box {
+            background: #111;
+            border: 2px solid #ff4757; /* Bordure Rouge */
+            border-radius: 10px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 71, 87, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .custom-modal-overlay.active .custom-modal-box {
+            transform: scale(1);
+        }
+
+        .custom-modal-icon {
+            font-size: 3rem;
+            color: #ff4757;
+            margin-bottom: 20px;
+        }
+
+        .custom-modal-title {
+            color: white;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .custom-modal-text {
+            color: #ccc;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .custom-modal-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .custom-modal-btn:hover {
+            background: #ff2e40;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+        }
+
     </style>
 </head>
 
 <body class="no-scroll">
+
+    <div id="stockModal" class="custom-modal-overlay">
+        <div class="custom-modal-box">
+            <div class="custom-modal-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h3 class="custom-modal-title">STOCK LIMITÉ</h3>
+            <p class="custom-modal-text">
+                Il ne reste qu'une <strong>seule place unique</strong>.<br>
+                Vous ne pouvez pas en ajouter d'autres au panier.
+            </p>
+            <button class="custom-modal-btn" onclick="closeStockModal()">JE COMPRENDS</button>
+        </div>
+    </div>
 
     <div id="welcome-screen">
         <div class="welcome-content">
@@ -373,13 +465,24 @@
             document.body.style.height = "auto";
         }
 
-        // --- NOUVELLE FONCTION AJOUT SÉCURISÉ (QUANTITÉ 1 MAX) ---
+        // --- GESTION DU WIDGET ALERTE (OUVERTURE / FERMETURE) ---
+        function showStockModal() {
+            document.getElementById('stockModal').classList.add('active');
+        }
+
+        function closeStockModal() {
+            document.getElementById('stockModal').classList.remove('active');
+        }
+
+        // --- FONCTION AJOUT SÉCURISÉ (QUANTITÉ 1 MAX) ---
         function addUniqueItem(category, price) {
             // Vérifie si le panier contient déjà quelque chose
             const cartContainer = document.getElementById('cartItems');
+            
             if(cartContainer && cartContainer.children.length > 0) {
-                 alert("⚠️ STOCK LIMITÉ : Il ne reste qu'une seule place. Vous ne pouvez pas en ajouter d'autres.");
-                 return; // On arrête tout, on n'ajoute pas
+                 // ICI ON LANCE LE WIDGET PERSONNALISÉ AU LIEU DE ALERT()
+                 showStockModal();
+                 return; 
             }
 
             // Si le panier est vide, on ajoute normalement
@@ -414,18 +517,5 @@
         <p>Date : 2026. Lieu : Paris. Billetterie officielle pour acheter vos tickets en catégorie Carré Or, Fosse et Gradins.</p>
         <p>Inscrivez-vous à l'alerte pour l'ouverture de la vente des billets Omer Adam Paris.</p>
     </div>
-
-    <div id="stock-alert-modal" class="custom-modal">
-    <div class="modal-content">
-        <div class="icon-box">
-            <i class="fas fa-exclamation-circle"></i>
-        </div>
-        <h3>STOCK LIMITÉ</h3>
-        <p>Il ne reste qu'une <strong>seule place unique</strong>.</p>
-        <p class="sub-text">Impossible d'ajouter plus de billets au panier.</p>
-        <button onclick="closeStockAlert()">JE COMPRENDS</button>
-    </div>
-</div>
 </body>
 </html>
-
