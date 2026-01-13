@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- 1. ECRAN D'ACCUEIL (ENTRER) --- */
+        /* --- 1. ECRAN D'ACCUEIL --- */
         #welcome-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -70,7 +70,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 2. SÉCURITÉ : GESTION DU SCROLL --- */
+        /* --- 2. SCROLL --- */
         html, body {
             overflow-y: auto !important; 
             height: auto !important;
@@ -81,24 +81,21 @@
             height: 100% !important;
         }
 
-        /* --- 3. GESTION DES ZONES ET BOUTONS --- */
-        
-        /* Par défaut, tout est bloqué et grisé */
+        /* --- 3. ZONES ET BOUTONS --- */
         .clickable-zone {
             pointer-events: none !important;
             cursor: default !important;
             opacity: 0.3;
         }
         
-        /* EXCEPTION : On débloque la CATÉGORIE 2 pour la vente flash */
+        /* Exception : Catégorie 2 active */
         #zone-cat2 {
             pointer-events: auto !important;
             cursor: pointer !important;
             opacity: 1 !important;
-            fill: #25D366 !important; /* Vert WhatsApp pour attirer l'oeil */
+            fill: #ff4757 !important; /* Rouge Urgence */
         }
 
-        /* Boutons grisés par défaut */
         .btn-add:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -224,7 +221,7 @@
                         <text x="405" y="200" text-anchor="middle" fill="white" font-size="10" pointer-events="none">CAT 3-4</text>
                         
                         <path id="zone-cat2" d="M150,310 L350,310 L350,380 L150,380 Z" 
-                              onclick="window.open('https://wa.me/972503524964?text=Bonjour,%20je%20suis%20interessé%20par%20LA%20derniere%20place%20en%20Categorie%202.', '_blank')"
+                              onclick="addToCart('Catégorie 2', 280)"
                               class="clickable-zone zone-cat2" 
                               style="cursor: pointer !important; opacity: 1 !important;"/>
                         
@@ -265,13 +262,8 @@
                             </div>
                         </div>
                         <div class="price-action">
-                            <span style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-right: 10px;">280 €</span>
-                            <a href="https://wa.me/972503524964?text=Bonjour,%20je%20veux%20acheter%20LA%20derniere%20place%20en%20Categorie%202%20maintenant." 
-                               target="_blank"
-                               class="btn-add" 
-                               style="background-color: #25D366; color: white; border: none; width: auto; padding: 0 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; height: 35px; border-radius: 5px; cursor: pointer;">
-                                <i class="fab fa-whatsapp" style="margin-right:5px;"></i> ACHETER
-                            </a>
+                            <span style="font-size: 1.1rem; font-weight: bold; color: #fff;">280 €</span>
+                            <button class="btn-add" onclick="addToCart('Catégorie 2', 280)" style="background-color: #ff4757; color: white; border: none; cursor: pointer;">+</button>
                         </div>
                     </div>
 
@@ -337,7 +329,9 @@
         <div class="cart-body" id="cartItems"></div>
         <div class="cart-footer">
             <div class="total-row"><span>Total Estimé</span><span id="cartTotal">0,00 €</span></div>
-            <button class="btn-whatsapp disabled-link" style="opacity:0.5; cursor:not-allowed;"><i class="fab fa-whatsapp"></i> Finaliser sur WhatsApp</button>
+            <button id="btnWhatsappCheckout" class="btn-whatsapp" onclick="checkoutWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Finaliser sur WhatsApp
+            </button>
         </div>
     </div>
     
@@ -377,6 +371,25 @@
             document.documentElement.style.overflow = "auto";
             document.body.style.overflow = "auto";
             document.body.style.height = "auto";
+        }
+
+        // --- NOUVEAU SYSTÈME DE PAIEMENT PANIER ---
+        // Cette fonction écrase celle de script.js pour s'assurer que ça va au bon numéro
+        function checkoutWhatsApp() {
+            let total = document.getElementById('cartTotal').innerText;
+            
+            // Si panier vide, on alerte
+            if(total === "0,00 €" || total === "0 €") {
+                alert("Votre panier est vide");
+                return;
+            }
+
+            // Numéro ISRAÉLIEN
+            let phone = "972503524964";
+            let message = "Bonjour, je souhaite acheter la DERNIÈRE PLACE (Catégorie 2). Total : " + total;
+            
+            let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+            window.open(url, '_blank');
         }
     </script>
     
