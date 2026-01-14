@@ -945,3 +945,82 @@ input:focus, textarea:focus {
     color: white;
     text-decoration: underline;
 }
+
+/* --- CONTENEUR DES DATES (HEADER) --- */
+.hero-dates-wrapper {
+    display: flex;
+    flex-direction: column; /* L'une au dessus de l'autre */
+    gap: 15px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+/* On réutilise ton style .hero-date mais on ajuste pour qu'il contienne du texte en dessous */
+.date-box {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--gold);
+    padding: 15px 40px;
+    border: 2px solid var(--gold);
+    background: rgba(0, 0, 0, 0.4);
+    letter-spacing: 3px;
+    text-align: center;
+    position: relative;
+    width: fit-content;
+    transition: 0.3s;
+}
+
+/* LE PETIT TEXTE (Bientôt dispo / Dernières places) */
+.date-status {
+    display: block;
+    font-size: 0.7rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    text-transform: uppercase;
+    color: white;
+}
+
+/* STYLE SPÉCIFIQUE POUR LE 19 (Bloqué) */
+.date-box.locked {
+    opacity: 0.7;
+    border-color: #666; /* Bordure grise */
+    color: #ccc; /* Texte gris */
+}
+
+/* STYLE SPÉCIFIQUE POUR LE 20 (Urgent) */
+.date-box.active {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    border-color: var(--gold);
+}
+
+.text-red { color: #ff4757 !important; } /* Pour "Dernières places" */
+.text-gold { color: var(--gold) !important; } /* Pour "Bientôt" */
+
+/* --- STYLE DU SÉLECTEUR DE DATE (DANS LA BILLETTERIE) --- */
+.date-selector-container {
+    margin-bottom: 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+}
+.date-selector-label {
+    display: block;
+    color: var(--gold);
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.styled-select {
+    width: 100%;
+    padding: 12px;
+    background: #111;
+    color: white;
+    border: 1px solid var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
