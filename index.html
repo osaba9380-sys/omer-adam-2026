@@ -343,55 +343,76 @@
                     <div class="tooltip" id="mapTooltip"></div>
                 </div>
 
-                <div class="selection-panel">
-                    
-                    <div class="date-selector-container">
-                        <label class="date-selector-label">SÉLECTIONNEZ VOTRE DATE :</label>
-                        <select class="styled-select" id="concert-date-select">
-                            <option value="20" selected>Mardi 20 Janvier 2026 - (Dernières dispos)</option>
-                            <option value="19" disabled>Lundi 19 Janvier 2026 - (Bientôt disponible)</option>
-                        </select>
-                    </div>
-                    <div class="category-row">
-                        ```
+               <div class="selection-panel">
+    
+    <div class="date-tabs-wrapper">
+        
+        <div class="date-tab locked">
+            <div class="date-info">
+                <span class="d-day">LUNDI 19 JANV. 2026</span>
+                <span class="d-status">Bientôt disponible</span>
+            </div>
+            <i class="fas fa-lock" style="color: #666;"></i>
+        </div>
 
+        <div class="date-tab active">
+            <div class="date-info">
+                <span class="d-day text-gold">MARDI 20 JANV. 2026</span>
+                <span class="d-status text-red">DERNIÈRES PLACES</span>
+            </div>
+            <i class="fas fa-check-circle text-gold"></i>
+        </div>
 
-                    <div class="category-row">
-                        <div class="cat-info"><span class="dot gold"></span><div><h4>Carré Or</h4><small>Au plus près d'Omer</small></div></div>
-                        <div class="price-action">
-                            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
-                            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
-                        </div>
-                    </div>
-                    <div class="category-row">
-                        <div class="cat-info"><span class="dot blue"></span><div><h4>Categorie 1</h4><small>Ambiance garantie</small></div></div>
-                        <div class="price-action">
-                            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
-                            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
-                        </div>
-                    </div>
+    </div>
+    <div class="category-row">
+        <div class="cat-info">
+            <span class="dot gold"></span>
+            <div><h4>Carré Or</h4><small>Au plus près d'Omer</small></div>
+        </div>
+        <div class="price-action">
+            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
+            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
+        </div>
+    </div>
+    
+    <div class="category-row">
+        <div class="cat-info">
+            <span class="dot blue"></span>
+            <div><h4>Categorie 1</h4><small>Ambiance garantie</small></div>
+        </div>
+        <div class="price-action">
+            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
+            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
+        </div>
+    </div>
 
-                    <div class="category-row" style="border: 2px solid #ff4757; background: rgba(255, 71, 87, 0.1);">
-                        <div class="cat-info">
-                            <span class="dot white" style="background: #ff4757; box-shadow: 0 0 10px #ff4757;"></span>
-                            <div><h4 style="color: #ff4757;">Catégorie 2</h4><small style="color: white; font-weight: bold;">⚠ DERNIÈRE PLACE DISPO</small></div>
-                        </div>
-                        <div class="price-action">
-                            <span style="font-size: 1.1rem; font-weight: bold; color: #fff;">280 €</span>
-                            <button class="btn-add" onclick="addUniqueItem('Catégorie 2', 280)" style="background-color: #ff4757; color: white; border: none; cursor: pointer;">+</button>
-                        </div>
-                    </div>
-
-                    <div class="category-row">
-                        <div class="cat-info"><span class="dot grey"></span><div><h4>Catégorie 3-4-5</h4><small>Vue panoramique</small></div></div>
-                        <div class="price-action">
-                            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
-                            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
-                        </div>
-                    </div>
-                </div>
+    <div class="category-row" style="border: 2px solid #ff4757; background: rgba(255, 71, 87, 0.1);">
+        <div class="cat-info">
+            <span class="dot white" style="background: #ff4757; box-shadow: 0 0 10px #ff4757;"></span>
+            <div>
+                <h4 style="color: #ff4757;">Catégorie 2</h4>
+                <small style="color: white; font-weight: bold;">⚠ DERNIÈRE PLACE DISPO</small>
             </div>
         </div>
+        <div class="price-action">
+            <span style="font-size: 1.1rem; font-weight: bold; color: #fff;">280 €</span>
+            <button class="btn-add" onclick="addUniqueItem('Catégorie 2', 280)" style="background-color: #ff4757; color: white; border: none; cursor: pointer;">+</button>
+        </div>
+    </div>
+
+    <div class="category-row">
+        <div class="cat-info">
+            <span class="dot grey"></span>
+            <div><h4>Catégorie 3-4-5</h4><small>Vue panoramique</small></div>
+        </div>
+        <div class="price-action">
+            <span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>
+            <button class="btn-add" disabled style="background-color: #333; color: #555; cursor: not-allowed; border: 1px solid #444;"><i class="fas fa-lock"></i></button>
+        </div>
+    </div>
+
+</div>
+            
     </section>
 
     <footer id="infos">
@@ -499,6 +520,7 @@
     </div>
 </body>
 </html>
+
 
 
 
