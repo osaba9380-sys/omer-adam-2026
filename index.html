@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- STYLES ADDITIONNELS POUR LA MISE À JOUR --- */
+        /* --- STYLES ADDITIONNELS --- */
         
-        /* HEADER DATES : LES DEUX EN OR */
+        /* HEADER DATES */
         .hero-dates-container {
             display: flex; flex-direction: column; gap: 20px; 
             margin-bottom: 30px; align-items: center;
@@ -38,7 +38,7 @@
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
-        /* SÉLECTEUR DE DATE (Billetterie) */
+        /* SÉLECTEUR DE DATE */
         .date-tabs-wrapper { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; width: 100%; }
         .date-tab {
             width: 100%; padding: 15px 20px; background: rgba(255, 255, 255, 0.03);
@@ -67,36 +67,79 @@
             background: #D4AF37; color: black; box-shadow: 0 0 10px #D4AF37;
         }
 
-        /* WIDGET ALERTE & RESTE DU CSS (Inchangé) */
+        /* STYLES DES MODALES (Stock + Single) */
         #welcome-screen { display: none !important; }
         html, body { overflow-y: auto !important; height: auto !important; }
+        
         .cta-button.urgent-glow {
             background-color: #ff4757 !important; color: white !important; border: none !important;
             font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
             box-shadow: 0 0 20px rgba(255, 71, 87, 0.6); animation: glowPulse 1.5s infinite;
         }
+        
         .custom-modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
             z-index: 100000; justify-content: center; align-items: center;
         }
         .custom-modal-overlay.active { display: flex; }
+        
         .custom-modal-box {
-            background: #111; border: 2px solid #ff4757; padding: 40px; width: 90%; max-width: 400px; 
-            text-align: center; border-radius: 10px;
+            background: #111; border: 1px solid #D4AF37; padding: 40px; width: 90%; max-width: 450px; 
+            text-align: center; border-radius: 12px; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
         }
-        .custom-modal-btn { background: #ff4757; color: white; border: none; padding: 12px 30px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 20px;}
+
+        /* Boutons de la modale Single */
+        .modal-actions {
+            display: flex; gap: 15px; margin-top: 30px; justify-content: center;
+        }
+        .btn-modal-cancel {
+            background: transparent; border: 1px solid #666; color: #aaa;
+            padding: 12px 20px; font-weight: bold; cursor: pointer; flex: 1;
+            font-family: 'Montserrat'; transition: 0.3s;
+        }
+        .btn-modal-cancel:hover { border-color: white; color: white; }
+        
+        .btn-modal-confirm {
+            background: #D4AF37; border: 1px solid #D4AF37; color: black;
+            padding: 12px 20px; font-weight: bold; cursor: pointer; flex: 1;
+            font-family: 'Montserrat'; transition: 0.3s;
+        }
+        .btn-modal-confirm:hover { background: #fff; border-color: #fff; }
+
+        .custom-modal-btn { 
+            background: #ff4757; color: white; border: none; padding: 12px 30px; 
+            width: 100%; font-weight: bold; cursor: pointer; margin-top: 20px;
+        }
     </style>
 </head>
 
 <body class="no-scroll">
 
     <div id="stockModal" class="custom-modal-overlay">
-        <div class="custom-modal-box">
+        <div class="custom-modal-box" style="border-color: #ff4757;">
             <div style="font-size: 3rem; color: #ff4757; margin-bottom: 20px;"><i class="fas fa-exclamation-circle"></i></div>
-            <h3 style="color: white; font-family: 'Syne'; margin-bottom: 10px;">STOCK LIMITÉ</h3>
-            <p style="color: #ccc;">Il ne reste qu'une <strong>seule place unique</strong> pour l'achat immédiat.</p>
+            <h3 class="custom-modal-title" style="color: white; font-family: 'Syne'; margin-bottom: 10px;">STOCK LIMITÉ</h3>
+            <p class="custom-modal-text" style="color: #ccc;">Il ne reste qu'une <strong>seule place unique</strong>.<br>Impossible d'en ajouter d'autres.</p>
             <button class="custom-modal-btn" onclick="closeStockModal()">JE COMPRENDS</button>
+        </div>
+    </div>
+
+    <div id="singleSeatModal" class="custom-modal-overlay">
+        <div class="custom-modal-box">
+            <div style="font-size: 3rem; color: #D4AF37; margin-bottom: 20px;"><i class="fas fa-user"></i></div>
+            <h3 style="color: #D4AF37; font-family: 'Syne'; margin-bottom: 15px; font-size: 1.5rem;">PLACE SINGLE</h3>
+            <p style="color: #fff; font-size: 1rem; line-height: 1.6;">
+                Attention : La place que vous avez sélectionnée est un <strong>SIÈGE UNIQUE</strong> (Single Seat).
+            </p>
+            <p style="color: #888; font-size: 0.9rem; margin-top: 10px;">
+                Il n'y en a qu'une seule de disponible dans cette zone.
+            </p>
+            
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" onclick="closeSingleModal()">ANNULER</button>
+                <button class="btn-modal-confirm" onclick="confirmSingleAdd()">AJOUTER</button>
+            </div>
         </div>
     </div>
 
@@ -197,7 +240,6 @@
                 <div class="selection-panel">
     
                     <div class="date-tabs-wrapper">
-                        
                         <div id="tab-19" class="date-tab" onclick="switchDate(19)">
                             <div class="date-info">
                                 <span class="d-day">LUNDI 19 JANV. 2026</span>
@@ -205,7 +247,6 @@
                             </div>
                             <i class="fas fa-check-circle check-icon" style="color: #D4AF37; display: none;"></i>
                         </div>
-
                         <div id="tab-20" class="date-tab active" onclick="switchDate(20)">
                             <div class="date-info">
                                 <span class="d-day text-gold">MARDI 20 JANV. 2026</span>
@@ -213,7 +254,6 @@
                             </div>
                             <i class="fas fa-check-circle check-icon" style="color: #D4AF37;"></i>
                         </div>
-
                     </div>
 
                     <div class="category-row">
@@ -235,10 +275,7 @@
                     <div class="category-row" style="border: 2px solid #ff4757; background: rgba(255, 71, 87, 0.1);">
                         <div class="cat-info">
                             <span class="dot white" style="background: #ff4757; box-shadow: 0 0 10px #ff4757;"></span>
-                            <div>
-                                <h4 style="color: #ff4757;">Catégorie 2</h4>
-                                <small style="color: white; font-weight: bold;">⚠ DERNIÈRE PLACE DISPO</small>
-                            </div>
+                            <div><h4 style="color: #ff4757;">Catégorie 2</h4><small style="color: white; font-weight: bold;">⚠ DERNIÈRE PLACE DISPO</small></div>
                         </div>
                         <div class="price-action">
                             <span id="dynamic-price" style="font-size: 1.1rem; font-weight: bold; color: #fff;">280 €</span>
@@ -292,7 +329,7 @@
     <script src="script.js"></script>
 
     <script>
-        // --- 0. CONFIGURATION DE BASE ---
+        // --- 0. CONFIGURATION ---
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
         window.onbeforeunload = function () { window.scrollTo(0, 0); }
         window.onload = function() { window.scrollTo(0, 0); }
@@ -300,9 +337,13 @@
         // --- VARIABLES GLOBALES ---
         let selectedDate = "Mardi 20 Janvier 2026";
         let selectedPrice = 280;
-        let cartData = []; // Pour stocker les détails précis du panier pour WhatsApp
+        let cartData = [];
+        
+        // Variables temporaires pour la confirmation Single
+        let pendingItemName = "";
+        let pendingItemPrice = 0;
 
-        // --- 1. FONCTION DE CHANGEMENT DE DATE ---
+        // --- 1. CHANGEMENT DATE ---
         function switchDate(day) {
             const tab19 = document.getElementById('tab-19');
             const tab20 = document.getElementById('tab-20');
@@ -313,7 +354,6 @@
             const text20 = tab20.querySelector('.d-day');
 
             if (day === 19) {
-                // 19 JANVIER (340€)
                 selectedDate = "Lundi 19 Janvier 2026";
                 selectedPrice = 340;
                 tab19.classList.add('active'); tab20.classList.remove('active');
@@ -321,7 +361,6 @@
                 text19.classList.add('text-gold'); text20.classList.remove('text-gold');
                 priceDisplay.innerHTML = "340 €"; 
             } else {
-                // 20 JANVIER (280€)
                 selectedDate = "Mardi 20 Janvier 2026";
                 selectedPrice = 280;
                 tab20.classList.add('active'); tab19.classList.remove('active');
@@ -331,68 +370,80 @@
             }
         }
 
-        // --- 2. LOGIQUE D'AJOUT AU PANIER (HYBRIDE) ---
+        // --- 2. LOGIQUE PANIER ---
         
-        // A. AJOUTER UNE PLACE DISPO (Cat 2)
+        // A. ACHAT (AVEC CONFIRMATION SINGLE)
         function addCurrentSelection() {
             let itemName = "Achat : Cat 2 (" + selectedDate + ")";
             
-            // On vérifie le stock (1 max pour l'achat immédiat)
+            // 1. Vérifier si déjà un achat
             const hasPurchase = cartData.some(item => item.type === 'purchase');
             if(hasPurchase) {
+                 document.querySelector('#stockModal .custom-modal-title').innerText = "STOCK LIMITÉ";
+                 document.querySelector('#stockModal .custom-modal-text').innerHTML = "Il ne reste qu'une <strong>seule place unique</strong>.<br>Impossible d'en ajouter d'autres.";
+                 document.querySelector('#stockModal .custom-modal-box').style.borderColor = "#ff4757";
                  showStockModal(); 
                  return; 
             }
+
+            // 2. Si pas d'achat, on ouvre la modale de confirmation Single
+            pendingItemName = itemName;
+            pendingItemPrice = selectedPrice;
             
-            // Ajout visuel
+            document.getElementById('singleSeatModal').classList.add('active');
+        }
+        
+        // FONCTION QUI S'EXECUTE SI L'UTILISATEUR CLIQUE "AJOUTER" SUR LA MODALE SINGLE
+        function confirmSingleAdd() {
             if(typeof addToCart === 'function') {
-                addToCart(itemName, selectedPrice);
+                addToCart(pendingItemName, pendingItemPrice);
                 toggleCart();
             }
+            cartData.push({ type: 'purchase', desc: pendingItemName, price: pendingItemPrice });
             
-            // Ajout données
-            cartData.push({ type: 'purchase', desc: itemName, price: selectedPrice });
+            // Fermer la modale
+            closeSingleModal();
         }
 
-        // B. AJOUTER UNE DEMANDE (Cat Or, 1, 3-4-5)
+        // B. DEMANDE (Pas de doublon identique)
         function addRequest(catName) {
             let itemName = "Demande : " + catName + " (" + selectedDate + ")";
-            
-            // Ajout visuel (Prix 0 ou texte "Demande")
-            // Astuce : on envoie 0 comme prix à la fonction addToCart existante
+            const alreadyRequested = cartData.some(item => item.desc === itemName);
+            if(alreadyRequested) {
+                 document.querySelector('#stockModal .custom-modal-title').innerText = "DÉJÀ AJOUTÉ";
+                 document.querySelector('#stockModal .custom-modal-text').innerHTML = "Vous avez déjà fait une demande pour cette catégorie.<br>Une seule suffit.";
+                 document.querySelector('#stockModal .custom-modal-box').style.borderColor = "#ff4757";
+                 showStockModal(); 
+                 return;
+            }
             if(typeof addToCart === 'function') {
                 addToCart(itemName, 0);
                 toggleCart();
             }
-
-            // Ajout données
             cartData.push({ type: 'request', desc: itemName, price: 0 });
         }
 
-        // --- 3. WHATSAPP INTELLIGENT ---
+        // --- 3. WHATSAPP ---
         function checkoutWhatsApp() {
             if(cartData.length === 0) { alert("Votre panier est vide"); return; }
-            
             let phone = "972503524964";
             let message = "Bonjour, voici ma sélection pour OMER ADAM Paris :\n";
-            
-            // On construit le message ligne par ligne
             cartData.forEach(item => {
-                if(item.type === 'purchase') {
-                    message += "✅ ACHAT CONFIRMÉ : " + item.desc + " - " + item.price + "€\n";
-                } else {
-                    message += "📩 DEMANDE DE DISPO : " + item.desc + "\n";
-                }
+                if(item.type === 'purchase') message += "✅ ACHAT CONFIRMÉ : " + item.desc + " - " + item.price + "€\n";
+                else message += "📩 DEMANDE DE DISPO : " + item.desc + "\n";
             });
-            
-            // On ajoute le total affiché
             let total = document.getElementById('cartTotal').innerText;
             message += "\n💰 Total estimé (Hors demandes) : " + total;
-
             window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), '_blank');
         }
 
-        // --- 4. AUTO-PLAY MUSIQUE ---
+        // --- 4. GESTION DES MODALES ---
+        function showStockModal() { document.getElementById('stockModal').classList.add('active'); }
+        function closeStockModal() { document.getElementById('stockModal').classList.remove('active'); }
+        
+        function closeSingleModal() { document.getElementById('singleSeatModal').classList.remove('active'); }
+
+        // --- 5. AUTO-PLAY & SENSORS ---
         function attemptPlay() {
             var audio = document.getElementById("audioSource");
             var btnIcon = document.querySelector("#playPauseBtn i"); 
@@ -423,7 +474,7 @@
         document.addEventListener('touchstart', attemptPlay, { once: true });
         document.addEventListener('keydown', attemptPlay, { once: true });
 
-        // --- 5. FONCTIONS UTILES ---
+        // --- 6. UTILITAIRES ---
         function toggleMusic() {
             var audio = document.getElementById("audioSource");
             var btnIcon = document.querySelector("#playPauseBtn i");
@@ -439,12 +490,7 @@
             const icon = document.querySelector('.hamburger-icon');
             menu.classList.toggle('active'); icon.classList.toggle('open');
         }
-        function showStockModal() { document.getElementById('stockModal').classList.add('active'); }
-        function closeStockModal() { document.getElementById('stockModal').classList.remove('active'); }
-        
-        // Fonction addUniqueItem gardée pour compatibilité si besoin, mais remplacée par addCurrentSelection
         function addUniqueItem(category, price) { addCurrentSelection(); }
-
     </script>
 </body>
 </html>
