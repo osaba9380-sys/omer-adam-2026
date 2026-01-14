@@ -267,13 +267,19 @@
         <div class="hero-content">
             <img src="logo.png" alt="Adidas Arena" class="venue-logo">
 
-            <div class="extra-date-box">
-                <span class="tag-corner">PROCHAINEMENT</span>
-                <div class="extra-date-text">19.01.2026</div>
-                <span class="tag-bottom">DERNIÈRES PLACES</span>
-            </div>
+            <div class="hero-dates-wrapper">
+                
+                <div class="date-box locked">
+                    19.01.2026
+                    <span class="date-status text-gold">OUVERTURE PROCHAINE</span>
+                </div>
 
-            <div class="hero-date">20.01.2026</div>
+                <div class="date-box active">
+                    20.01.2026
+                    <span class="date-status text-red">DERNIÈRES PLACES</span>
+                </div>
+
+            </div>
             
             <h1 class="main-title">OMER ADAM</h1>
             <p class="sub-hero">LE PREMIER CONCERT EN FRANCE</p>
@@ -338,6 +344,23 @@
                 </div>
 
                 <div class="selection-panel">
+                    
+                    <div class="date-selector-container">
+                        <label class="date-selector-label">SÉLECTIONNEZ VOTRE DATE :</label>
+                        <select class="styled-select" id="concert-date-select">
+                            <option value="20" selected>Mardi 20 Janvier 2026 - (Dernières dispos)</option>
+                            <option value="19" disabled>Lundi 19 Janvier 2026 - (Bientôt disponible)</option>
+                        </select>
+                    </div>
+                    <div class="category-row">
+                        ```
+
+### Résultat :
+1.  **En haut (Header) :** Tu as deux beaux rectangles superposés. Le 19 est un peu grisé avec écrit "OUVERTURE PROCHAINE". Le 20 est lumineux avec écrit "DERNIÈRES PLACES" en rouge. Le design est identique.
+2.  **Dans la billetterie :** Avant de choisir la catégorie (Cat 2, etc.), l'utilisateur voit un menu déroulant.
+    * Par défaut, c'est sur le **20 Janvier**.
+    * S'il clique pour changer, il voit le **19 Janvier** mais il est grisé (impossible de cliquer dessus), ce qui confirme que c'est "Bientôt".
+3.  **Panier :** La logique reste la même (Cat 2 dispo pour le 20, le reste bloqué).
                     <div class="category-row">
                         <div class="cat-info"><span class="dot gold"></span><div><h4>Carré Or</h4><small>Au plus près d'Omer</small></div></div>
                         <div class="price-action">
@@ -481,4 +504,5 @@
     </div>
 </body>
 </html>
+
 
