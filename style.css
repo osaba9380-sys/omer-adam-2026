@@ -1024,37 +1024,37 @@ input:focus, textarea:focus {
     outline: none;
 }
 
-/* --- SÉLECTEUR DE DATE EN LISTE VERTICALE --- */
+/* --- SÉLECTEUR DE DATE (LISTE VERTICALE) --- */
 .date-tabs-wrapper {
     display: flex;
-    flex-direction: column; /* C'est ça qui empile de haut en bas */
-    gap: 10px; /* Petit espace entre les deux dates */
+    flex-direction: column; /* IMPORTANT : C'est ça qui les met en colonne */
+    gap: 10px; 
     margin-bottom: 25px;
     width: 100%;
 }
 
 .date-tab {
-    width: 100%; /* Prend toute la largeur disponible */
+    width: 100%;
     padding: 15px 20px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
     display: flex;
-    justify-content: space-between; /* Ecarte le texte gauche et l'icône droite */
+    justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Empêche le bouton de déborder */
     transition: all 0.3s ease;
 }
 
-/* STYLE DU 20 JANVIER (ACTIF) */
+/* LE 20 JANVIER (ACTIF) */
 .date-tab.active {
-    background: rgba(212, 175, 55, 0.1); /* Fond doré très léger */
+    background: rgba(212, 175, 55, 0.1); 
     border: 1px solid var(--gold);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
 }
 
-/* STYLE DU 19 JANVIER (BLOQUÉ) */
+/* LE 19 JANVIER (BLOQUÉ) */
 .date-tab.locked {
     opacity: 0.5;
     background: rgba(0, 0, 0, 0.3);
@@ -1062,7 +1062,7 @@ input:focus, textarea:focus {
     cursor: not-allowed;
 }
 
-/* TYPOGRAPHIE DANS LA BARRE */
+/* TEXTES DANS LA BARRE */
 .date-info {
     display: flex;
     flex-direction: column;
@@ -1084,7 +1084,6 @@ input:focus, textarea:focus {
     color: #888;
 }
 
+/* COULEURS */
 .text-gold { color: var(--gold) !important; }
 .text-red { color: #ff4757 !important; font-weight: bold; }
-
-
