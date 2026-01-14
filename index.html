@@ -154,6 +154,67 @@
             cursor: pointer; border-radius: 5px; transition: 0.3s; width: 100%;
         }
         .custom-modal-btn:hover { background: #ff2e40; box-shadow: 0 0 15px rgba(255, 71, 87, 0.6); }
+
+        /* --- NOUVEAU STYLE : BLOC DATE SUPPLÉMENTAIRE --- */
+        .extra-date-box {
+            background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 30px;
+            margin-bottom: 15px; /* Espace avec la date du 20 */
+            position: relative; /* Pour placer les étiquettes */
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .extra-date-box:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .extra-date-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem; /* Un peu plus petit que la date principale */
+            color: #ccc; /* Gris pour montrer que c'est pas encore actif/ou passé */
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-decoration: line-through; /* Optionnel : barré si c'est complet, sinon enlève */
+            text-decoration-color: #ff4757;
+        }
+
+        /* ÉTIQUETTE ROUGE (Coin haut droit) - PROCHAINEMENT */
+        .tag-corner {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff4757;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 2px 10px rgba(255, 71, 87, 0.4);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        /* ÉTIQUETTE BASSE - DERNIÈRES PLACES */
+        .tag-bottom {
+            display: block;
+            margin-top: 5px;
+            color: #ff4757;
+            font-size: 0.8rem;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
     </style>
 </head>
 
@@ -199,14 +260,24 @@
         <div class="menu-footer">OA 2026</div>
     </div>
 
-    <header id="accueil">
+   <header id="accueil">
         <div class="bg-overlay"></div>
         <div class="hero-bg" style="background-image: url('omerfond.jpg');"></div>
+        
         <div class="hero-content">
             <img src="logo.png" alt="Adidas Arena" class="venue-logo">
+
+            <div class="extra-date-box">
+                <span class="tag-corner">PROCHAINEMENT</span>
+                <div class="extra-date-text">19.01.2026</div>
+                <span class="tag-bottom">DERNIÈRES PLACES</span>
+            </div>
+
             <div class="hero-date">20.01.2026</div>
+            
             <h1 class="main-title">OMER ADAM</h1>
             <p class="sub-hero">LE PREMIER CONCERT EN FRANCE</p>
+            
             <a href="#billetterie" class="cta-button urgent-glow">DERNIÈRES PLACES DISPO</a>
         </div>
     </header>
@@ -410,3 +481,4 @@
     </div>
 </body>
 </html>
+
