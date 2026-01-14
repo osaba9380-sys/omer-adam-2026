@@ -448,11 +448,77 @@
     <script src="script.js"></script>
 
     <script>
-        // --- 0. FIXE LE SCROLL EN HAUT (RELOAD) ---
+        // --- 0. FORCER LE HAUT DE PAGE (RELOAD) ---
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
         window.onbeforeunload = function () { window.scrollTo(0, 0); }
         window.onload = function() { window.scrollTo(0, 0); }
 
+        // --- 1. LE "DÉCLENCHEUR INVISIBLE" (AUTO-PLAY) ---
+        // Cette fonction essaie de lancer la musique au moindre geste
+        function attemptPlay() {
+            var audio = document.getElementById("audioSource");
+            var btnIcon = document.querySelector("#playPauseBtn i"); 
+            var visualizer = document.getElementById("visualizer");
+
+            if(audio) {
+                // On tente de jouer le son
+                var promise = audio.play();
+
+                if (promise !== undefined) {
+                    promise.then(_ => {
+                        // SUCCÈS : La musique a démarré !
+                        if(btnIcon) { 
+                            btnIcon.classList.remove("fa-play"); 
+                            btnIcon.classList.add("fa-pause"); 
+                        }
+                        if(visualizer) visualizer.classList.add("playing");
+                        
+                        // On arrête d'espionner (pour ne pas relancer en boucle)
+                        removeSensors();
+                    }).catch(error => {
+                        // ÉCHEC (Navigateur bloque) : On attend le prochain geste
+                    });
+                }
+            }
+        }
+
+        // Fonction pour nettoyer les espions une fois que la musique marche
+        function removeSensors() {
+            document.removeEventListener('click', attemptPlay);
+            document.removeEventListener('scroll', attemptPlay);
+            document.removeEventListener('touchstart', attemptPlay);
+            document.removeEventListener('mousemove', attemptPlay);
+            document.removeEventListener('keydown', attemptPlay);
+        }
+
+        // ON PLACE LES CAPTEURS PARTOUT
+        // Dès que le visiteur bouge, clique ou scrolle -> La musique part
+        document.addEventListener('click', attemptPlay, { once: true });
+        document.addEventListener('scroll', attemptPlay, { once: true });
+        document.addEventListener('touchstart', attemptPlay, { once: true }); // Mobile
+        document.addEventListener('mousemove', attemptPlay, { once: true });  // Souris PC
+        document.addEventListener('keydown', attemptPlay, { once: true });    // Clavier
+
+        // --- 2. GESTION MANUELLE MUSIQUE (BOUTON PLAY/PAUSE) ---
+        function toggleMusic() {
+            var audio = document.getElementById("audioSource");
+            var btnIcon = document.querySelector("#playPauseBtn i");
+            var visualizer = document.getElementById("visualizer");
+            
+            if (audio.paused) {
+                audio.play();
+                btnIcon.classList.remove("fa-play");
+                btnIcon.classList.add("fa-pause");
+                visualizer.classList.add("playing");
+            } else {
+                audio.pause();
+                btnIcon.classList.remove("fa-pause");
+                btnIcon.classList.add("fa-play");
+                visualizer.classList.remove("playing");
+            }
+        }
+
+        // --- 3. MENU MOBILE ---
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu-overlay');
             const icon = document.querySelector('.hamburger-icon');
@@ -460,49 +526,26 @@
             icon.classList.toggle('open');
         }
 
-        // --- 1. FONCTION ENTRER ---
-        function startExperience() {
-            // FIXE SCROLL EN HAUT
-            window.scrollTo(0, 0);
-
-            var audio = document.getElementById("audioSource");
-            var welcome = document.getElementById("welcome-screen");
-            var btnIcon = document.querySelector("#playPauseBtn i"); 
-            var visualizer = document.getElementById("visualizer");
-
-            if(audio) { audio.play().catch(e => console.log("Lecture auto bloquée")); }
-            if(btnIcon) { btnIcon.classList.remove("fa-play"); btnIcon.classList.add("fa-pause"); }
-            if(visualizer) visualizer.classList.add("playing");
-
-            if(welcome) {
-                welcome.style.opacity = "0";
-                setTimeout(() => { welcome.style.display = "none"; }, 800); // 800ms pour laisser le temps au fade out
-            }
-            
-            document.body.classList.remove("no-scroll");
-            document.documentElement.style.overflow = "auto";
-            document.body.style.overflow = "auto";
-            document.body.style.height = "auto";
-        }
-
-        // --- 2. GESTION DU WIDGET ALERTE ---
+        // --- 4. WIDGET ALERTE (STOCK) ---
         function showStockModal() { document.getElementById('stockModal').classList.add('active'); }
         function closeStockModal() { document.getElementById('stockModal').classList.remove('active'); }
 
-        // --- 3. AJOUT SÉCURISÉ (MAX 1) ---
+        // --- 5. AJOUT SÉCURISÉ (MAX 1) ---
         function addUniqueItem(category, price) {
             const cartContainer = document.getElementById('cartItems');
+            // Si le panier a déjà 1 article, on bloque
             if(cartContainer && cartContainer.children.length > 0) {
-                 showStockModal(); // Lance le widget luxe
+                 showStockModal(); 
                  return; 
             }
+            // Sinon on ajoute
             if(typeof addToCart === 'function') {
                 addToCart(category, price);
                 toggleCart();
             }
         }
 
-        // --- 4. CHECKOUT WHATSAPP (+972) ---
+        // --- 6. CHECKOUT WHATSAPP ---
         function checkoutWhatsApp() {
             let total = document.getElementById('cartTotal').innerText;
             if(total === "0,00 €" || total === "0 €") { alert("Votre panier est vide"); return; }
@@ -520,6 +563,7 @@
     </div>
 </body>
 </html>
+
 
 
 
