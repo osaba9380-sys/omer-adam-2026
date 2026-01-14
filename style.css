@@ -104,23 +104,25 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100%; /* Prend toute la hauteur de l'écran */
     z-index: -2;
-    background-color: #000; /* Fond noir pour boucher les trous */
+    background-color: #000;
 
     /* L'IMAGE */
-    background-image: url('fond-hd.jpg'); /* Mets le nom de la nouvelle image */
-    background-size: 25%; /* Elle couvre tout car elle est HD */
-    background-position: center top; /* On centre sur le haut */
+    background-image: url('omerfond.jpg'); /* Assure-toi du nom du fichier */
+    
+    /* CORRECTION ICI : */
+    background-size: cover; /* L'image va couvrir tout l'écran sans se déformer */
+    background-position: center center; /* Centrée parfaitement */
     background-repeat: no-repeat;
 
-    /* LA MAGIE (Masque de fusion) */
-    /* Ça crée un cercle de lumière au milieu et assombrit les bords */
-    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
-    mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+    /* MASQUE DE FUSION (Pour que ça se fonde dans le noir sur les bords) */
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
 
     /* FINITIONS */
-    filter: brightness(0.7) contrast(1.1); /* Un peu sombre pour que le texte ressorte */
+    opacity: 0.6; /* Un peu transparent pour ne pas gêner le texte */
+    filter: brightness(0.8) contrast(1.1); 
 }
 .bg-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -1087,3 +1089,4 @@ input:focus, textarea:focus {
 /* COULEURS */
 .text-gold { color: var(--gold) !important; }
 .text-red { color: #ff4757 !important; font-weight: bold; }
+
