@@ -1024,3 +1024,67 @@ input:focus, textarea:focus {
     outline: none;
 }
 
+/* --- SÉLECTEUR DE DATE EN LISTE VERTICALE --- */
+.date-tabs-wrapper {
+    display: flex;
+    flex-direction: column; /* C'est ça qui empile de haut en bas */
+    gap: 10px; /* Petit espace entre les deux dates */
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.date-tab {
+    width: 100%; /* Prend toute la largeur disponible */
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between; /* Ecarte le texte gauche et l'icône droite */
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* STYLE DU 20 JANVIER (ACTIF) */
+.date-tab.active {
+    background: rgba(212, 175, 55, 0.1); /* Fond doré très léger */
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+}
+
+/* STYLE DU 19 JANVIER (BLOQUÉ) */
+.date-tab.locked {
+    opacity: 0.5;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    cursor: not-allowed;
+}
+
+/* TYPOGRAPHIE DANS LA BARRE */
+.date-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.d-day {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+}
+
+.d-status {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-top: 3px;
+    color: #888;
+}
+
+.text-gold { color: var(--gold) !important; }
+.text-red { color: #ff4757 !important; font-weight: bold; }
+
+
