@@ -14,11 +14,9 @@
         /* --- STYLES PERSONNALISÉS --- */
         .hero-dates-container { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; align-items: center; }
         .hero-date-box { position: relative; font-size: 1.8rem; font-weight: 800; color: #D4AF37; padding: 10px 35px; border: 3px solid #D4AF37; background: rgba(0, 0, 0, 0.5); letter-spacing: 4px; backdrop-filter: blur(5px); width: fit-content; transition: 0.3s; }
-        .hero-date-box.soldout { border-color: #666; color: #aaa; } 
-
+        
         .tag-top-right { position: absolute; top: -12px; right: -20px; background: #ff4757; color: white; font-size: 0.6rem; font-weight: bold; padding: 4px 8px; border-radius: 4px; font-family: 'Montserrat', sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.5); animation: float 2s infinite ease-in-out; }
         .tag-bottom-center { position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); color: #ff4757; font-size: 0.7rem; font-weight: bold; font-family: 'Montserrat', sans-serif; text-transform: uppercase; white-space: nowrap; text-shadow: 0 0 5px rgba(0,0,0,0.8); }
-        .tag-bottom-center.grey { color: #aaa; }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
@@ -30,7 +28,6 @@
         .d-status { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; text-transform: uppercase; margin-top: 3px; color: #888; }
         .text-gold { color: #D4AF37 !important; }
         .text-red { color: #ff4757 !important; font-weight: bold; }
-        .text-grey { color: #888 !important; }
 
         /* BOUTON LISTE D'ATTENTE */
         .btn-waiting-list { background: transparent; border: 1px solid #D4AF37; color: #D4AF37; padding: 10px 15px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: 4px; width: 100%; }
@@ -78,7 +75,7 @@
             </p>
             <div class="modal-actions">
                 <button class="btn-modal-cancel" onclick="closeSingleModal()">ANNULER</button>
-                <button class="btn-modal-confirm" onclick="confirmSingleAdd()">AJOUTER (280€)</button>
+                <button id="btn-confirm-add" class="btn-modal-confirm" onclick="confirmSingleAdd()">AJOUTER</button>
             </div>
         </div>
     </div>
@@ -122,7 +119,7 @@
                 </div>
                 <div class="hero-date-box">
                     20.01.2026
-                    <span class="tag-bottom-center grey">COMPLET</span>
+                    <span class="tag-bottom-center">DERNIÈRES PLACES</span>
                 </div>
             </div>
             
@@ -181,19 +178,19 @@
                 <div class="selection-panel">
     
                     <div class="date-tabs-wrapper">
-                        <div id="tab-19" class="date-tab active" onclick="switchDate(19)">
+                        <div id="tab-19" class="date-tab" onclick="switchDate(19)">
                             <div class="date-info">
-                                <span class="d-day text-gold">LUNDI 19 JANV. 2026</span>
+                                <span class="d-day">LUNDI 19 JANV. 2026</span>
+                                <span class="d-status text-gold">NOUVELLE DATE</span>
+                            </div>
+                            <i class="fas fa-check-circle check-icon" style="color: #D4AF37; display: none;"></i>
+                        </div>
+                        <div id="tab-20" class="date-tab active" onclick="switchDate(20)">
+                            <div class="date-info">
+                                <span class="d-day text-gold">MARDI 20 JANV. 2026</span>
                                 <span class="d-status text-red">DERNIÈRES PLACES</span>
                             </div>
                             <i class="fas fa-check-circle check-icon" style="color: #D4AF37;"></i>
-                        </div>
-                        <div id="tab-20" class="date-tab" onclick="switchDate(20)">
-                            <div class="date-info">
-                                <span class="d-day">MARDI 20 JANV. 2026</span>
-                                <span class="d-status text-grey">COMPLET</span>
-                            </div>
-                            <i class="fas fa-check-circle check-icon" style="color: #D4AF37; display: none;"></i>
                         </div>
                     </div>
 
@@ -222,7 +219,7 @@
                             </div>
                         </div>
                         <div class="price-action">
-                            <span id="dynamic-price" style="color: #fff; font-weight: bold;"><span class="old-price">340 €</span> 280 €</span>
+                            <span id="dynamic-price" style="color: #fff; font-weight: bold;"><span class="old-price">280 €</span> 230 €</span>
                             <button id="cat2-btn" class="btn-add" onclick="addCurrentSelection()" style="background-color: #ff4757; color: white; border: none; cursor: pointer;">+</button>
                         </div>
                     </div>
@@ -289,9 +286,9 @@
         window.onload = function() { window.scrollTo(0, 0); }
 
         // --- VARIABLES GLOBALES ---
-        // On commence sur le 19 car c'est la seule date dispo
-        let selectedDate = "Lundi 19 Janvier 2026";
-        let selectedPrice = 280; 
+        // On commence sur le 20
+        let selectedDate = "Mardi 20 Janvier 2026";
+        let selectedPrice = 230; // Prix Promo du 20
         let cartData = [];
         let pendingItemName = "";
         let pendingItemPrice = 0;
@@ -306,90 +303,40 @@
             const text19 = tab19.querySelector('.d-day');
             const text20 = tab20.querySelector('.d-day');
             
-            // Elements Cat 2
-            const cat2Row = document.getElementById('cat2-row');
-            const cat2Title = document.getElementById('cat2-title');
-            const cat2Status = document.getElementById('cat2-status');
+            // Prix HTML
             const cat2Price = document.getElementById('dynamic-price');
-            const cat2Btn = document.getElementById('cat2-btn');
-            const zoneCat2 = document.getElementById('zone-cat2'); // Plan
+            const confirmBtn = document.getElementById('btn-confirm-add');
 
             if (day === 19) {
-                // --- 19 JANVIER : ACTIVE (PROMO) ---
+                // --- 19 JANVIER : 280€ (Promo sur 340€) ---
                 selectedDate = "Lundi 19 Janvier 2026";
+                selectedPrice = 280;
                 
-                // Onglet actif
                 tab19.classList.add('active'); tab20.classList.remove('active');
                 icon19.style.display = 'block'; icon20.style.display = 'none';
                 text19.classList.add('text-gold'); text20.classList.remove('text-gold');
-
-                // Cat 2 : Mode PROMO
-                cat2Row.style.border = "2px solid #ff4757";
-                cat2Row.style.background = "rgba(255, 71, 87, 0.1)";
-                cat2Title.style.color = "#ff4757";
-                cat2Status.innerHTML = "⚠ SINGLE SEAT (PROMO)";
-                cat2Status.style.color = "white";
+                
                 cat2Price.innerHTML = '<span class="old-price">340 €</span> 280 €';
+                confirmBtn.innerText = "AJOUTER (280€)";
                 
-                // Bouton Actif (+)
-                cat2Btn.innerHTML = "+";
-                cat2Btn.disabled = false;
-                cat2Btn.style.backgroundColor = "#ff4757";
-                cat2Btn.style.color = "white";
-                cat2Btn.style.border = "none";
-                cat2Btn.style.cursor = "pointer";
-                cat2Btn.innerHTML = "+"; // Reset icon
-                
-                // Plan interactif
-                if(zoneCat2) {
-                    zoneCat2.style.fill = "#25D366"; // Vert
-                    zoneCat2.style.cursor = "pointer";
-                    zoneCat2.style.pointerEvents = "auto";
-                }
-
             } else {
-                // --- 20 JANVIER : SOLD OUT TOTAL ---
+                // --- 20 JANVIER : 230€ (Promo sur 280€) ---
                 selectedDate = "Mardi 20 Janvier 2026";
+                selectedPrice = 230;
                 
-                // Onglet actif
                 tab20.classList.add('active'); tab19.classList.remove('active');
                 icon20.style.display = 'block'; icon19.style.display = 'none';
                 text20.classList.add('text-gold'); text19.classList.remove('text-gold');
-
-                // Cat 2 : Mode SOLD OUT
-                cat2Row.style.border = "none";
-                cat2Row.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
-                cat2Row.style.background = "transparent";
-                cat2Title.style.color = "white"; // ou couleur standard
-                cat2Status.innerHTML = "Complet";
-                cat2Status.style.color = "#777";
-                cat2Price.innerHTML = '<span style="font-size: 0.8rem; font-weight: bold; color: #aaa;">Sold Out</span>';
                 
-                // Bouton Désactivé (Cadenas)
-                cat2Btn.disabled = true;
-                cat2Btn.style.backgroundColor = "#333";
-                cat2Btn.style.color = "#555";
-                cat2Btn.style.border = "1px solid #444";
-                cat2Btn.style.cursor = "not-allowed";
-                cat2Btn.innerHTML = '<i class="fas fa-lock"></i>';
-                
-                // Plan interactif
-                if(zoneCat2) {
-                    zoneCat2.style.fill = "#fff"; // Gris/Blanc cassé comme les autres
-                    zoneCat2.style.opacity = "0.3";
-                    zoneCat2.style.cursor = "default";
-                    zoneCat2.style.pointerEvents = "none";
-                }
+                cat2Price.innerHTML = '<span class="old-price">280 €</span> 230 €';
+                confirmBtn.innerText = "AJOUTER (230€)";
             }
         }
 
         // --- 2. LOGIQUE PANIER ---
         
-        // A. ACHAT SINGLE (CAT 2 - UNIQUEMENT SI 19)
+        // A. ACHAT SINGLE (CAT 2 - LES DEUX DATES)
         function addCurrentSelection() {
-            // Sécurité si on clique via le plan alors qu'on est sur le 20
-            if(selectedDate.includes("20 Janvier")) return; 
-
             let itemName = "Promo : Cat 2 (" + selectedDate + ")";
             
             // Vérifier si achat existant
@@ -413,7 +360,6 @@
 
         // B. DEMANDE GÉNÉRALE (LISTE D'ATTENTE)
         function addGeneralRequest() {
-            // Vérifier si une demande existe déjà
             const hasRequest = cartData.some(item => item.type === 'request');
             if(hasRequest) {
                  openAlert("DÉJÀ INSCRIT", "Vous avez déjà ajouté une demande de liste d'attente.<br>Une seule inscription suffit.");
@@ -438,7 +384,7 @@
             let phone = "972503524964";
             let message = "Bonjour, voici ma sélection pour OMER ADAM Paris :\n";
             cartData.forEach(item => {
-                if(item.type === 'purchase') message += "🔥 PROMO SINGLE (19 Janv) : " + item.desc + " - " + item.price + "€\n";
+                if(item.type === 'purchase') message += "🔥 PROMO SINGLE : " + item.desc + " - " + item.price + "€\n";
                 else message += "📝 INSCRIPTION LISTE D'ATTENTE\n";
             });
             let total = document.getElementById('cartTotal').innerText;
@@ -446,12 +392,11 @@
             window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), '_blank');
         }
 
-        // --- 4. MODALES ---
+        // --- 4. MODALES & SENSORS ---
         function showStockModal() { document.getElementById('stockModal').classList.add('active'); }
         function closeStockModal() { document.getElementById('stockModal').classList.remove('active'); }
         function closeSingleModal() { document.getElementById('singleSeatModal').classList.remove('active'); }
 
-        // --- 5. AUTO-PLAY & SENSORS ---
         function attemptPlay() {
             var audio = document.getElementById("audioSource");
             var btnIcon = document.querySelector("#playPauseBtn i"); 
@@ -482,7 +427,7 @@
         document.addEventListener('touchstart', attemptPlay, { once: true });
         document.addEventListener('keydown', attemptPlay, { once: true });
 
-        // --- 6. UTILITAIRES ---
+        // --- 5. UTILITAIRES ---
         function toggleMusic() {
             var audio = document.getElementById("audioSource");
             var btnIcon = document.querySelector("#playPauseBtn i");
